@@ -1,0 +1,35 @@
+Source: yubikey-val
+Section: utils
+Priority: extra
+Maintainer: Yubico Open Source Maintainers <ossmaint@yubico.com>
+Uploaders: Simon Josefsson <simon@josefsson.org>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Tommaso Galassi De Orchi <tom@yubico.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.3
+DM-Upload-Allowed: yes
+Homepage: https://github.com/Yubico/yubikey-val-server-php
+Vcs-Git: git://github.com/Yubico/yubikey-val-server-php.git
+Vcs-Browser: https://github.com/Yubico/yubikey-val-dpkg
+
+Package: yubikey-val
+Architecture: any
+Depends: ${misc:Depends},
+	 apache2,
+	 php5,
+	 php5-cli,
+	 php5-curl,
+	 php-pear,
+	 mysql-server | postgresql,
+	 php5-mysql | php5-pgsql,
+	 dbconfig-common
+Recommends: mysql-client | postgresql-client
+Description: YubiKey OTP validation server in PHP
+ yubikey-val implements the Yubico API protocol as defined in:
+ http://yubico.com/developers/api/
+ This server talks to another service for decrypting the OTPs, to avoid storing
+ any AES keys within the validation server. One implementation of this service
+ is YKKSM:
+ http://code.google.com/p/yubikey-ksm/
+ Another implementation of a KSM using the YubiHSM hardware is Python-PyHSM:
+ https://github.com/Yubico/python-pyhsm
+ Note that version 1.x is a minimal centralized server. Version 2.x is a
+ replicated system that uses multiple machines.

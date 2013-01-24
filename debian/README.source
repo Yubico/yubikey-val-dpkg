@@ -1,0 +1,28 @@
+yubikey-val for Debian
+----------------------
+
+We describe here one way to work with this package on a Wheezy system.
+
+Initialize cowbuilder:
+
+sudo cowbuilder --create --distribution sid --basepath /var/cache/pbuilder/base-debian-sid.cow
+
+Optionally update cowbuilder:
+
+sudo cowbuilder --update --basepath /var/cache/pbuilder/base-debian-sid.cow
+
+Clone the repository:
+
+git clone https://github.com/Yubico/yubikey-val-dpkg.git
+
+Build the package:
+
+git-buildpackage --git-builder="pdebuild --auto-debsign --pbuilder cowbuilder -- --basepath /var/cache/pbuilder/base-debian-sid.cow"
+
+If all goes well, you should have newly built packages in
+/var/cache/pbuilder/result/.
+
+Update the package to a new upstream release (don't forget debian/changelog):
+
+git-import-orig /path/to/new-release.tar.gz
+

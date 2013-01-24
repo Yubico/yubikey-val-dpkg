@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+override_dh_auto_build:
+# There is no default 'make' target for this package
+
+%:
+	dh $@ 

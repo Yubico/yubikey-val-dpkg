@@ -1,0 +1,5 @@
+yubikey-val (2.19-1) unstable; urgency=low
+
+  * Initial release 
+
+ -- Dain Nilsson <dain@yubico.com>  Thu, 24 Jan 2013 13:35:23 +0100

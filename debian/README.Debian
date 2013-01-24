@@ -1,0 +1,9 @@
+yubikey-val for Debian
+----------------------
+
+This package automates the installation instructions for 
+yubikey-val-server-php found here:
+
+  https://github.com/Yubico/yubikey-val-server-php/wiki/Installation
+
+ -- Dain Nilsson <dain@yubico.com>  Thu, 24 Jan 2013 13:35:23 +0100
