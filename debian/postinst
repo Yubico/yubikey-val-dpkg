@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+. /usr/share/dbconfig-common/dpkg/postinst
+
+
+#Copy the sql file containing the DB tables.
+ykval_db="/usr/share/doc/ykval/ykval-db.sql"
+dbconfig_dir="/usr/share/dbconfig-common/data/yubikey-val/install"
+
+install -D $ykval_db $dbconfig_dir/mysql
+install -D $ykval_db $dbconfig_dir/postgresql
+
+php_cf="/etc/ykval/config-db.php"
+cfg_cf="/etc/ykval/config-db.cfg"
+
+# PHP include
+dbc_generate_include_owner="root:www-data"
+dbc_generate_include_perms="0640"
+dbc_generate_include=php:$php_cf
+dbc_go yubikey-val $@
+
+#DEBHELPER#
+
+exit 0
