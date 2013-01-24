@@ -1,0 +1,61 @@
+= Format of Client Info Data = 
+
+This file holds data used in the YubiKey OTP validation phase.
+
+The file is an OpenPGP signed and encrypted text file.  Readers should
+support both CRLF and LF line endings.  The values are text and
+separated by comma ("," ASCII 0x2C).  The first line of the file MUST
+be as follows:
+
+```
+# ykclient 1
+```
+
+Each of the rest lines in the file follows the following format:
+
+```
+id,hmacSecret # comment
+```
+
+Any data after a # is treated as a comment and is ignored.  Lines of
+the following format:
+
+```
+# comment
+```
+
+are also treated as comments.
+
+The meaning are as follows:
+
+{|
+|id || the client identity
+  	        decimal integer
+|-
+|hmacSecret || printable ascii string with shared HMAC secret for client id
+|}
+
+Examples of valid data lines:
+
+```
+1,foobar
+2,whatever # not used
+```
+
+Example of actual data using the password 'foobar' (normally it would
+be encrypted to a particular OpenPGP key id):
+
+```
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+jA0EAwMCESloh0Ukd55gyTVle4l/E1UD/gV6/TVZtyJ4JYaFrUUHOShgejwLqw8A
+d86cmOGyK4OeEgt6vOjDX6akYQUriQ==
+=cY65
+-----END PGP MESSAGE-----
+```
+
+== Naming Scheme ==
+
+The files should use the standard GnuPG output extension '.asc'.  We
+suggest using the filename "yk-client-info.asc".
