@@ -1,0 +1,15 @@
+Index: yubikey-val-dpkg/Makefile
+===================================================================
+--- yubikey-val-dpkg.orig/Makefile	2013-01-25 10:43:00.000000000 +0100
++++ yubikey-val-dpkg/Makefile	2013-01-25 10:43:34.000000000 +0100
+@@ -23,8 +23,8 @@
+ 
+ etcprefix = /etc/ykval
+ sbinprefix = /usr/sbin
+-phpprefix = /usr/share/ykval
+-docprefix = /usr/share/doc/ykval
++phpprefix = /usr/share/yubikey-val
++docprefix = /usr/share/doc/yubikey-val
+ muninprefix = /usr/share/munin/plugins
+ wwwgroup = www-data
+ 

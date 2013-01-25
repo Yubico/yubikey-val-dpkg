@@ -7,7 +7,7 @@ set -e
 
 
 #Copy the sql file containing the DB tables.
-ykval_db="/usr/share/doc/ykval/ykval-db.sql"
+ykval_db="/usr/share/doc/yubikey-val/ykval-db.sql"
 dbconfig_dir="/usr/share/dbconfig-common/data/yubikey-val/install"
 
 install -D $ykval_db $dbconfig_dir/mysql
