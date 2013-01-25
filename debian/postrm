@@ -17,27 +17,20 @@ if [ "$1" = "purge" ]; then
     if which ucf >/dev/null 2>&1; then
         ucf --purge /etc/ykval/config-db.php
     fi
+    rm -rf /etc/ykksm
 fi
 
-#if [ "$1" = "purge" ]; then
-#    # these files are generated in postinst
-#    for cf in /etc/ykksm/config-db.php /etc/ykksm/config-db.cfg; do
-#	rm -f $cf
-#	if which ucf >/dev/null 2>&1; then
-#	    ucf --purge $cf
-#	fi
-#    done
-#fi
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    if [ -L /etc/apache2/conf.d/yubikey-val.conf ]; then
+        rm -f /etc/apache2/conf.d/yubikey-val.conf
+    fi
 
-#if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
-#    a2dissite yubikey-ksm yubikey-ksm-ssl || true
-#
-#    if [ -x /usr/sbin/invoke-rc.d ]; then
-#	invoke-rc.d apache2 reload 3>/dev/null || true
-#    else
-#	/etc/init.d/apache2 reload 3>/dev/null || true
-#    fi
-#fi
+    if [ -x /usr/sbin/invoke-rc.d ]; then
+        invoke-rc.d apache2 reload 3>/dev/null || true
+    else
+        /etc/init.d/apache2 reload 3>/dev/null || true
+    fi
+fi
 
 #DEBHELPER#
 

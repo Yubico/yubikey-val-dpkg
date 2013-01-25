@@ -22,6 +22,18 @@ dbc_generate_include_perms="0640"
 dbc_generate_include=php:$php_cf
 dbc_go yubikey-val $@
 
+if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/yubikey-val.conf ]; then
+    ln -s ../../ykval/apache.conf /etc/apache2/conf.d/yubikey-val.conf
+fi
+
+if [ -f /etc/init.d/apache2 ] ; then
+    if [ -x /usr/sbin/invoke-rc.d ]; then
+        invoke-rc.d apache2 reload 3>/dev/null || true
+    else
+        /etc/init.d/apache2 reload 3>/dev/null || true
+    fi
+fi
+
 #DEBHELPER#
 
 exit 0
