@@ -11,7 +11,7 @@ Vcs-Git: git://github.com/Yubico/yubikey-val-server-php.git
 Vcs-Browser: https://github.com/Yubico/yubikey-val-dpkg
 
 Package: yubikey-val
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends},
 	 apache2,
 	 php5,
