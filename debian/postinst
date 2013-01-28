@@ -5,14 +5,6 @@ set -e
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst
 
-
-#Copy the sql file containing the DB tables.
-ykval_db="/usr/share/doc/yubikey-val/ykval-db.sql"
-dbconfig_dir="/usr/share/dbconfig-common/data/yubikey-val/install"
-
-install -D $ykval_db $dbconfig_dir/mysql
-install -D $ykval_db $dbconfig_dir/postgresql
-
 php_cf="/etc/ykval/config-db.php"
 cfg_cf="/etc/ykval/config-db.cfg"
 
