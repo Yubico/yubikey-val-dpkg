@@ -1,3 +1,4 @@
+Changes the paths /usr/share/ykval and /usr/share/doc/ykval to /usr/share/yubikey-val and /usr/share/doc/yubikey-val, respectively.
 Index: yubikey-val-dpkg/Makefile
 ===================================================================
 --- yubikey-val-dpkg.orig/Makefile	2013-01-28 10:05:44.000000000 +0100
