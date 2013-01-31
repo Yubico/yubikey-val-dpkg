@@ -2,7 +2,7 @@
 <?php
 
 set_include_path(get_include_path() . PATH_SEPARATOR .
-		 "/etc/ykval:/usr/share/ykval");
+		 "/etc/yubico/val:/usr/share/yubikey-val");
 
 require_once 'ykval-config.php';
 
@@ -25,7 +25,7 @@ if ($argc==2 && strcmp($argv[1], "autoconf") == 0) {
 
 if ($argc==2 && strcmp($argv[1], "config") == 0) {
 
-  echo "multigraph yk_latency\n";
+  echo "multigraph ykval_ksmlatency\n";
   echo "graph_title KSM latency\n";
   echo "graph_vlabel Average KSM Decrypt Latency (seconds)\n";
   echo "graph_category ykval\n";
@@ -42,7 +42,7 @@ if ($argc==2 && strcmp($argv[1], "config") == 0) {
   exit (0);
 }
 
-echo "multigraph yk_latency\n";
+echo "multigraph ykval_ksmlatency\n";
 foreach ($ksms as $ksm) {
   $shortksm = url2shortname ($ksm);
   $time = `curl --silent --write-out '%{time_total}' --max-time 3 '$ksm' -o /dev/null`;

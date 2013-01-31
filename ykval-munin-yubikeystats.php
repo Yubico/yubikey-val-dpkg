@@ -2,7 +2,7 @@
 <?php
 
 set_include_path(get_include_path() . PATH_SEPARATOR .
-		 "/etc/ykval:/usr/share/ykval");
+		 "/etc/yubico/val:/usr/share/yubikey-val");
 
 require_once 'ykval-config.php';
 require_once 'ykval-db.php';
@@ -37,11 +37,7 @@ if ($argc==2 && strcmp($argv[1], "config") == 0) {
 }
 
 # Connect to db
-$db = new Db($baseParams['__YKVAL_DB_DSN__'],
-	     $baseParams['__YKVAL_DB_USER__'],
-	     $baseParams['__YKVAL_DB_PW__'],
-	     $baseParams['__YKVAL_DB_OPTIONS__'],
-	     'ykval-munin-yubikeystats:db');
+$db = Db::GetDatabaseHandle($baseParams, 'ykval-munin-yubikeystats');
 if (!$db->connect()) {
   logdie($myLog, 'ERROR Database connect error (1)');
 }

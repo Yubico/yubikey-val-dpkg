@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . "/usr/share/ykval:/etc/ykval");
+set_include_path(get_include_path() . PATH_SEPARATOR . "/usr/share/yubikey-val:/etc/yubico/val");
 
 require_once 'ykval-config.php';
 require_once 'ykval-db.php';
@@ -19,7 +19,9 @@ if (!$db->connect()) {
  }
 
 
-while ($res=fgetcsv(STDIN, 0, "\t")) {
+while ($res=fgetcsv(STDIN, 0, ",")) {
+  if($res[0]===null || strpos($res[0], '#')===0) continue;
+
   $params=array("active"=>$res[0],
 		"created"=>$res[1],
 		"modified"=>$res[2],
