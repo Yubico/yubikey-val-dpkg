@@ -26,6 +26,15 @@ if [ -f /etc/init.d/apache2 ] ; then
     fi
 fi
 
+if [ -x /etc/init.d/ykval-queue ]; then
+    update-rc.d ykval-queue defaults . >/dev/null
+    if [ -x /usr/sbin/invoke-rc.d ]; then
+        invoke-rc.d ykval-queue restart
+    else
+        /etc/init.d/ykval-queue restart
+    fi
+fi
+
 #DEBHELPER#
 
 exit 0
