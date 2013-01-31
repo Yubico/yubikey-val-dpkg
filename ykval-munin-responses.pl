@@ -6,14 +6,14 @@ use strict;
 use warnings;
 
 my @types = qw/OK BAD_OTP MISSING_PARAMETER BACKEND_ERROR BAD_SIGNATURE DELAYED_OTP NO_SUCH_CLIENT NOT_ENOUGH_ANSWERS REPLAYED_REQUEST REPLAYED_OTP OPERATION_NOT_ALLOWED/;
-my $logfile = "/var/log/yubikey-val-server-php.log";
+my $logfile = "/var/log/syslog";
 
 if(@ARGV > 0) {
   if($ARGV[0] eq "autoconf") {
     print "yes\n";
     exit 0;
   } elsif($ARGV[0] eq "config") {
-    print "multigraph yk_responses\n";
+    print "multigraph ykval_responses\n";
     print "graph_title YK-VAL response types\n";
     print "graph_vlabel responses\n";
     print "graph_category ykval\n";
@@ -41,7 +41,7 @@ while(<LOGFILE>) {
 }
 close LOGFILE;
 
-print "multigraph yk_responses\n";
+print "multigraph ykval_responses\n";
 foreach my $type (@types) {
   print "${type}.value ${statuses{$type}}\n";
 }

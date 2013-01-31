@@ -47,7 +47,11 @@ though.
 == Installation ==
 
 This following steps applies to any GNU/Linux-like system, although it
-was written for Debian GNU/Linux.
+was written for Debian GNU/Linux.  If you do not know which OS to use,
+we recommend a default choice of Ubuntu 12.04 LTS since it is a
+well-known distribution that comes with 5 years of security support.
+Install the OS following its manual and enable automatic security
+upgrades if prompted.
 
 === Step 1: YK-VAL Installation ===
 
@@ -110,7 +114,7 @@ The database needs to be initialized as follows:
 
 ```sh
 user@val:~$ echo 'create database ykval' | mysql
-user@val:~$ mysql ykval < /usr/share/doc/ykval/ykval-db.sql 
+user@val:~$ mysql ykval < /usr/share/doc/yubikey-val/ykval-db.sql 
 user@val:~$ 
 ```
 
@@ -145,7 +149,7 @@ The database needs to be initialized as follows:
 ```sh
 user@val:~$ sudo su postgres
 postgres@val:~$ createdb ykval
-postgres@val:~$ psql ykval < /usr/share/doc/ykval/ykval-db.sql 
+postgres@val:~$ psql ykval < /usr/share/doc/yubikey-val/ykval-db.sql 
 postgres@val:~$
 ```
 
@@ -186,8 +190,8 @@ Like this:
 ```sh
 user@val:~/yubikey-val-server-php$ sudo make symlink
 install -d /var/www/wsapi/2.0
-ln -sf /usr/share/ykval/ykval-verify.php /var/www/wsapi/2.0/verify.php
-ln -sf /usr/share/ykval/ykval-sync.php /var/www/wsapi/2.0/sync.php
+ln -sf /usr/share/yubikey-val/ykval-verify.php /var/www/wsapi/2.0/verify.php
+ln -sf /usr/share/yubikey-val/ykval-sync.php /var/www/wsapi/2.0/sync.php
 user@val:~/yubikey-val-server-php$ 
 ```
 
@@ -201,7 +205,7 @@ Set the include path for the queue daemon by creating a file
 
 ```sh
 user@val:~$ sudo sh -c 'cat > /etc/default/ykval-queue'
-DAEMON_ARGS="/etc/ykval:/usr/share/ykval"
+DAEMON_ARGS="/etc/yubico/val:/usr/share/yubikey-val"
 user@val:~$ 
 ```
 
@@ -213,7 +217,7 @@ user@val:~$ sudo sh -c 'cat > /var/www/wsapi/2.0/.htaccess'
 RewriteEngine on
 RewriteRule ^([^/\.\?]+)(\?.*)?$ $1.php$2 [L]
 <IfModule mod_php5.c>
- php_value include_path ".:/etc/ykval:/usr/share/ykval"
+ php_value include_path ".:/etc/yubico/val:/usr/share/yubikey-val"
 </IfModule>
 user@val:~$ sudo ln -s 2.0/.htaccess /var/www/wsapi/.htaccess
 user@val:~$
@@ -230,11 +234,11 @@ place you need to modify the paths.
 You also need to create a ykval-config.php script.  An example file is
 included in YK-VAL package as ykval-config.php
 
-A template is typically installed in /etc/ykval/ykval-config.php-template.
+A template is typically installed in /etc/yubico/val/ykval-config.php-template.
 
 ```sh
-user@val:~$ sudo cp /etc/ykval/ykval-config.php-template /etc/ykval/ykval-config.php
-user@val:~$ sudo emacs -nw /etc/ykval/ykval-config.php
+user@val:~$ sudo cp /etc/yubico/val/ykval-config.php-template /etc/yubico/val/ykval-config.php
+user@val:~$ sudo emacs -nw /etc/yubico/val/ykval-config.php
 ```
 
 Be careful about the user permissions and ownership so that unrelated
@@ -526,29 +530,18 @@ user@host:~$ sudo /etc/init.d/rsyslog restart
 
 === Step 9: Start Sync Daemon ===
 
-The Sync Daemon uses the PEAR module System_Daemon so you need to
-install it:
+When using yubikey-val in a sync pool, you need to have the ykval-queue 
+daemon running to ensure that data is synchronized between the servers in 
+the pool. The easiest way of running this is to simply invoke ykval-queue 
+in a shell:
 
 ```sh
-user@val:~$ sudo pear install System_Daemon-0.9.2
-...
-user@val:~$ 
+user@val:~$ sudo ykval-queue
 ```
 
-Create the /etc/init.d script and the /etc/rc?.d symlinks for the
-daemon as follows:
-
-```sh
-user@val:~$ sudo ykval-queue install
-user@val:~$ sudo update-rc.d -f ykval-queue defaults
-user@val:~$ 
-```
-
-After that you can start the daemon like this:
-
-```sh
-user@val:~$ sudo /etc/init.d/ykval-queue start
-```
+However, the recommended approach is to automate running this process in 
+the background, by use of an init script or similar. Instructions on doing 
+so vary depending on your operating system.
 
 === Step 10: Test it ===
 

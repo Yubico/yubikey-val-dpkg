@@ -1,3 +1,21 @@
+* Version 2.20 released 2013-01-31
+
+  * Add ChangeLog generation using git2cl.
+
+  * Changed location of files to /usr/share/yubikey-val, etc.
+
+  * Changed location of configuration files to /etc/yubico/val/.
+
+  * Made import/export scripts use comma separation, instead of tabs.
+
+  * Added a working ykval-config.php that looks for a ksm on localhost.
+
+  * Removed System_Daemon dependency and made ykval-queue a simple
+    backgroundable process that can be daemonized using for instance
+    and init.d script.
+
+  * Added man pages for executables.
+
 * Version 2.19 released 2012-07-05
 
   * Refactor database code, allowing for other underlying implementations

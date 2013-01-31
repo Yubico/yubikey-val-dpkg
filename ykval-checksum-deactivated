@@ -18,12 +18,12 @@ if (isset($argv[1])) {
 }
 
 set_include_path(get_include_path() . PATH_SEPARATOR .
-		 "/usr/share/ykval:/etc/ykval");
+		 "/usr/share/yubikey-val:/etc/yubico/val");
 
 require_once 'ykval-config.php';
 require_once 'ykval-db.php';
 
-$logname="ykval-checksum-clients";
+$logname="ykval-checksum-deactivated";
 $myLog = new Log($logname);
 
 $db = Db::GetDatabaseHandle($baseParams, $logname);
@@ -34,21 +34,15 @@ if (!$db->connect()) {
 }
 
 $everything = "";
-$result=$db->customQuery("SELECT id, active, secret ".
-			 "FROM clients ".
-			 "ORDER BY id");
-while($row = $db->fetchArray($result)) {
-  $active = $row['active'];
-  if ($active == "") {
-    # For some reason PostgreSQL returns empty strings for false values?!
-    $active = "0";
-  }
+$result=$db->customQuery("SELECT yk_publicname, yk_counter, yk_use ".
+			 "FROM yubikeys WHERE active = false ".
+			 "ORDER BY yk_publicname");
+while($row = $result->fetch(PDO::FETCH_ASSOC)) {
   $everything = $everything .
-    $row['id'] . "\t" . $active . "\t" .
-    $row['secret'] . "\n";
+    $row['yk_publicname'] . "\t" . $row['yk_counter'] . "\t" . $row['yk_use'] .
+    "\n";
 }
 
-$db->closeCursor($result);
 $hash = sha1 ($everything);
 
 if ($verbose) {
