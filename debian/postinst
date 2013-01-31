@@ -5,8 +5,8 @@ set -e
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst
 
-php_cf="/etc/ykval/config-db.php"
-cfg_cf="/etc/ykval/config-db.cfg"
+php_cf="/etc/yubico/val/config-db.php"
+cfg_cf="/etc/yubico/val/config-db.cfg"
 
 # PHP include
 dbc_generate_include_owner="root:www-data"
@@ -15,7 +15,7 @@ dbc_generate_include=php:$php_cf
 dbc_go yubikey-val $@
 
 if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/yubikey-val.conf ]; then
-    ln -s ../../ykval/apache.conf /etc/apache2/conf.d/yubikey-val.conf
+    ln -s ../../yubico/val/apache.conf /etc/apache2/conf.d/yubikey-val.conf
 fi
 
 if [ -f /etc/init.d/apache2 ] ; then

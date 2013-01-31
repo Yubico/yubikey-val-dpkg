@@ -13,11 +13,11 @@ fi
 
 if [ "$1" = "purge" ]; then
     #This file is generated in postinst
-    rm -f /etc/ykval/config-db.php
+    rm -f /etc/yubico/val/config-db.php
     if which ucf >/dev/null 2>&1; then
-        ucf --purge /etc/ykval/config-db.php
+        ucf --purge /etc/yubico/val/config-db.php
     fi
-    rm -rf /etc/ykksm
+    rm -rf /etc/yubico/val
 fi
 
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then

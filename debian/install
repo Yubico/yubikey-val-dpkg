@@ -1,2 +1,2 @@
-debian/conf/apache.conf /etc/ykval/
-debian/conf/dbconfig/* /usr/share/dbconfig-common/data/yubikey-val-server-php/install/
+debian/conf/apache.conf /etc/yubico/val/
+debian/conf/dbconfig/* /usr/share/dbconfig-common/data/yubikey-val/install/
