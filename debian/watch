@@ -1,2 +1,2 @@
 version=3
-http://yubico.github.com/yubikey-val-server-php/releases.html .*/yubikey-val-(\d[\d.]*)\.(?:zip|tgz|tbz2|txz|tar\.gz|tar\.bz2|tar\.xz)
+http://yubico.github.com/yubikey-val/releases.html .*/yubikey-val-(\d[\d.]*)\.(?:zip|tgz|tbz2|txz|tar\.gz|tar\.bz2|tar\.xz)
