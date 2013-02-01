@@ -18,8 +18,6 @@ if [ "$1" = "purge" ]; then
         ucf --purge /etc/yubico/val/config-db.php
     fi
     rm -rf /etc/yubico/val
-
-    update-rc.d ykval-queue remove >/dev/null
 fi
 
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
