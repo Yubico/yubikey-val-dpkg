@@ -1,4 +1,4 @@
-VERSION = 2.20
+VERSION = 2.21
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS ykval-checksum-clients			\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -106,7 +106,7 @@ release: dist
 		echo "  make release KEYID=2117364A"; \
 		exit 1; \
 	fi
-	@head -1 NEWS | grep -q "Version $(VERSION) released `date -I`" || \
+	@head -1 NEWS | grep -q "Version $(VERSION) (released `date -I`)" || \
 		(echo 'error: You need to update date/version in NEWS'; exit 1)
 	gpg --detach-sign --default-key $(KEYID) $(PACKAGE)-$(VERSION).tgz
 	gpg --verify $(PACKAGE)-$(VERSION).tgz.sig
@@ -125,7 +125,7 @@ release: dist
 	git add releases/$(PACKAGE)-$(VERSION).tgz.sig
 	rmdir --ignore-fail-on-non-empty $(TMPDIR)
 
-	x=$$(ls -1v releases/*.tgz | awk -F\- '{print $$3}' | sed 's/.tgz//' | paste -sd ',' - | sed 's/,/, /g');sed -i -e "2s/\[.*\]/[$$x]/" releases.html
+	x=$$(ls -1v releases/*.tgz | awk -F\- '{print $$3}' | sed 's/.tgz//' | paste -sd ',' - | sed 's/,/, /g' | sed 's/\([0-9.]\{1,\}\)/"\1"/g');sed -i -e "2s/\[.*\]/[$$x]/" releases.html
 	git add releases.html
 	git commit -m "Added tarball for release $(VERSION)"
 	git push
