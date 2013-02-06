@@ -1,5 +1,5 @@
 yubikey-val (2.21-1) unstable; urgency=low
 
-  * Initial release 
+  * Initial package (closes: #699530).
 
  -- Dain Nilsson <dain@yubico.com>  Thu, 24 Jan 2013 13:35:23 +0100
