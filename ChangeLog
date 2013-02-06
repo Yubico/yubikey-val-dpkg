@@ -1,3 +1,41 @@
+2013-02-05  Dain Nilsson <dain@yubico.com>
+
+	* NEWS: Updated NEWS for 2.21 release.
+
+2013-02-05  Dain Nilsson <dain@yubico.com>
+
+	* Makefile, NEWS: Changed release format of NEWS for consistency.
+
+2013-02-04  Dain Nilsson <dain@yubico.com>
+
+	* COPYING, ykval-checksum-clients, ykval-checksum-deactivated,
+	ykval-common.php, ykval-config.php, ykval-db-pdo.php, ykval-db.php,
+	ykval-export, ykval-export-clients, ykval-import,
+	ykval-import-clients, ykval-log.php, ykval-munin-ksmlatency.php,
+	ykval-munin-queuelength.php, ykval-munin-responses.pl,
+	ykval-munin-vallatency.php, ykval-munin-yubikeystats.php,
+	ykval-ping.php, ykval-queue, ykval-resync.php, ykval-revoke.php,
+	ykval-sync.php, ykval-synclib.php, ykval-verify.php: Updated
+	copyright headers.
+
+2013-02-04  Dain Nilsson <dain@yubico.com>
+
+	* doc, ykval-sync.php, ykval-synclib.php: Updated references to old
+	Google Code project.
+
+2013-01-31  Dain Nilsson <dain@yubico.com>
+
+	* NEWS, ykval-db-pdo.php: Fixed problems when no current result
+	exists.
+
+2013-01-31  Dain Nilsson <dain@yubico.com>
+
+	* Makefile, NEWS: Updated NEWS and Makefile post 2.20 release.
+
+2013-01-31  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Added quoting of versions for Jekyll
+
 2013-01-31  Dain Nilsson <dain@yubico.com>
 
 	* NEWS: Updated NEWS for 2.20

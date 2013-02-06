@@ -10,8 +10,8 @@ not be secure unless you take additional pre-cautions.
 = Installation =
 
 ```sh
-user@val:~/yubikey-val-server-php$ sudo make revoke
-user@val:~/yubikey-val-server-php$ 
+user@val:~/yubikey-val$ sudo make revoke
+user@val:~/yubikey-val$ 
 ```
 
 = Configuration =

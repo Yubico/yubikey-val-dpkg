@@ -19,7 +19,7 @@ Currently there are two recommended implementations of a YK-KSM.  If you have a 
 
 Otherwise we recommend the "soft" YK-KSM:
 
-[http://code.google.com/p/yubikey-ksm/]
+[https://github.com/Yubico/yubikey-ksm/]
 
 The YK-KSM can be on the same machine as the validation server, but
 for improved security we recommend to use different machines for the
@@ -60,10 +60,10 @@ First you should download and install the latest YK-VAL release:
 ```sh
 user@val:~$ sudo apt-get install subversion make
 ...
-user@val:~$ svn checkout http://yubikey-val-server-php.googlecode.com/svn/trunk/ yubikey-val-server-php
+user@val:~$ svn checkout http://yubikey-val.googlecode.com/svn/trunk/ yubikey-val
 ...
-user@val:~$ cd yubikey-val-server-php
-user@val:~/yubikey-val-server-php$ sudo make install
+user@val:~$ cd yubikey-val
+user@val:~/yubikey-val$ sudo make install
 ```
 
 The rest of this documentation will assume you have YK-VAL available
@@ -188,11 +188,11 @@ the symlinks is to invoke 'make symlink' in your YK-VAL source tree.
 Like this:
 
 ```sh
-user@val:~/yubikey-val-server-php$ sudo make symlink
+user@val:~/yubikey-val$ sudo make symlink
 install -d /var/www/wsapi/2.0
 ln -sf /usr/share/yubikey-val/ykval-verify.php /var/www/wsapi/2.0/verify.php
 ln -sf /usr/share/yubikey-val/ykval-sync.php /var/www/wsapi/2.0/sync.php
-user@val:~/yubikey-val-server-php$ 
+user@val:~/yubikey-val$ 
 ```
 
 If you want to do it manually, you can invoke the above commands
@@ -565,5 +565,5 @@ the verify function to work properly.
 === The End ===
 
 You now have a YK-VAL up and running.  See
-[http://code.google.com/p/yubikey-ksm/wiki/ServerHardening] on how to
+[https://github.com/Yubico/yubikey-ksm/wiki/ServerHardening] on how to
 improve security of your system.
