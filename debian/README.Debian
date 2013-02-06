@@ -1,9 +1,17 @@
 yubikey-val for Debian
 ----------------------
 
-This package automates the installation instructions for 
-yubikey-val-server-php found here:
+This package contains the YubiKey Validation (YK-VAL) server.
 
-  https://github.com/Yubico/yubikey-val-server-php/wiki/Installation
+The homepage is:
 
- -- Dain Nilsson <dain@yubico.com>  Thu, 24 Jan 2013 13:35:23 +0100
+  http://yubico.github.com/yubikey-val/
+
+Documentation is available from here:
+
+  https://github.com/Yubico/yubikey-val/wiki/_pages
+
+For production use, you may look into setting up the Munin probes as
+described here:
+
+  https://github.com/Yubico/yubikey-val/wiki/MuninProbes
