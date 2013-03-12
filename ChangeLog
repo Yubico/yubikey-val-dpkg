@@ -1,3 +1,69 @@
+2013-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* ykval-verify.php: Log query for POST requests too.
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* doc: Updated docs.
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* Makefile, ykval-gen-clients.1: Added ykval-gen-clients.1
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* ykval-gen-clients: ykval-gen-clients -h does not include db
+	config.
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Added ykval-gen-clients to Makefile.
+
+2013-03-11  Dain Nilsson <dain@yubico.com>
+
+	* NEWS, ykval-gen-clients: Added ykval-gen-clients (fixes #7)
+
+2013-03-05  Dain Nilsson <dain@yubico.com>
+
+	* doc: Updated doc (fixes #5).
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Added ykval-synchronize to Makefile.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* ykval-synchronize.1: Added man page for ykval-synchronize.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* doc: Updated doc.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Updated version in Makefile.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* NEWS: Updated NEWS.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* ykval-config.php: Default to allow the same IPs for resync as for
+	sync.
+
+2013-02-13  Dain Nilsson <dain@yubico.com>
+
+	* ykval-sync.php: Nitpicking
+
+2013-02-12  Dain Nilsson <dain@yubico.com>
+
+	* ykval-synchronize: Added script for invoking ykval-resync.php.
+
+2013-02-12  Dain Nilsson <dain@yubico.com>
+
+	* ykval-resync.php: Added full resync by sending yk=all.
+
 2013-02-05  Dain Nilsson <dain@yubico.com>
 
 	* NEWS: Updated NEWS for 2.21 release.
