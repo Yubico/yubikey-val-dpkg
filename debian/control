@@ -3,7 +3,8 @@ Section: net
 Priority: extra
 Maintainer: Yubico Open Source Maintainers <ossmaint@yubico.com>
 Uploaders: Simon Josefsson <simon@josefsson.org>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Tommaso Galassi De Orchi <tom@yubico.com>
-Build-Depends: debhelper (>= 7.0.50~)
+Build-Depends: debhelper (>= 7.0.50~),
+	       po-debconf
 Standards-Version: 3.9.3
 Homepage: https://github.com/Yubico/yubikey-val
 Vcs-Browser: https://github.com/Yubico/yubikey-val-dpkg
