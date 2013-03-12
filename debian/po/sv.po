@@ -1,0 +1,40 @@
+# Swedish translation of yubikey-val
+# Copyright (C) 2013 Dain Nilsson <dain@yubico.com>
+# This file is distributed under the same license as the yubikey-val package.
+# Dain Nilsson <dain@yubico.com>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: yubikey-val\n"
+"Report-Msgid-Bugs-To: yubikey-val@packages.debian.org\n"
+"POT-Creation-Date: 2013-03-12 16:11+0100\n"
+"PO-Revision-Date: 2013-03-12 16:31+0100\n"
+"Last-Translator: Dain Nilsson <dain@yubico.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../yubikey-val.templates:1001
+msgid "Initial API client"
+msgstr "Ursprunglig API-klient"
+
+#. Type: note
+#. Description
+#: ../yubikey-val.templates:1001
+msgid ""
+"An API client has been created to ease getting started. You can get the "
+"client secret by running:"
+msgstr ""
+"En API-klient har skapats för att lättare kunna komma igång. Du kan "
+"läsa ut klienthemligheten genom att köra:"
+
+#. Type: note
+#. Description
+#: ../yubikey-val.templates:1001
+msgid "user:~$ sudo ykval-export-clients"
+msgstr "user:~$ sudo ykval-export-clients"
