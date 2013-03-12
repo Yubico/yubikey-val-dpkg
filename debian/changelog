@@ -1,3 +1,17 @@
+yubikey-val (2.22-1) unstable; urgency=low
+
+  * Added the ability to send yk=all to ykval-resync.php to queue sync
+    of all known active YubiKeys.
+
+  * Added ykval-synchronize to easily call ykval-resync.php on a remote
+    server.
+
+  * Added ykval-gen-clients to generate API clients.
+
+  * Log query for POST requests too.
+
+ -- Dain Nilsson <dain@yubico.com>  Tue, 12 Mar 2013 11:47:47 +0100
+
 yubikey-val (2.21-2) unstable; urgency=low
 
   * Initial package (closes: #699530).
