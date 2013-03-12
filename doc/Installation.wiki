@@ -58,9 +58,9 @@ upgrades if prompted.
 First you should download and install the latest YK-VAL release:
 
 ```sh
-user@val:~$ sudo apt-get install subversion make
+user@val:~$ sudo apt-get install git make
 ...
-user@val:~$ svn checkout http://yubikey-val.googlecode.com/svn/trunk/ yubikey-val
+user@val:~$ git clone git://github.com/Yubico/yubikey-val.git
 ...
 user@val:~$ cd yubikey-val
 user@val:~/yubikey-val$ sudo make install
@@ -543,7 +543,24 @@ However, the recommended approach is to automate running this process in
 the background, by use of an init script or similar. Instructions on doing 
 so vary depending on your operating system.
 
-=== Step 10: Test it ===
+=== Step 10: Sync data from an existing server (optional) ===
+
+If you're adding a new server to an existing pool, you can synchronize all 
+YubiKey counter data from one of the existing servers. To do so, the server 
+you want to sync from needs to be configured to allow it. Do this by editing 
+/etc/yubico/val/ykval-config.php on the existing server, adding the new 
+servers IP address to the __YKRESYNC_IPS__ setting. You'll most likely want 
+to add the IP to the __YKVAL_ALLOWED_SYNC_POOL__ setting as well. You also 
+need to edit this file on the new server, adding the existing server(s) IP
+address(es) to __YKVAL_ALLOWED_SYNC_POOL__.
+
+Once these permissions have been configured, you can initiate the full sync 
+by running the following command from the new server:
+```sh
+user@val:~$ ykval-synchronize http://<IP or hostname of existing server>/wsapi/2.0/resync all
+```
+
+=== Step 11: Test it ===
 
 You can test the service by requesting a URL.  Using wget, for
 example:

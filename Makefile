@@ -1,4 +1,4 @@
-VERSION = 2.21
+VERSION = 2.22
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS ykval-checksum-clients			\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -6,10 +6,12 @@ CODE = COPYING Makefile NEWS ykval-checksum-clients			\
 	ykval-queue ykval-revoke.php ykval-synclib.php		\
 	ykval-sync.php ykval-verify.php ykval-export-clients 	\
 	ykval-import-clients ykval-db-oci.php ykval-db-pdo.php	\
-	ykval-db.oracle.sql ykval-resync.php ykval-checksum-deactivated
+	ykval-db.oracle.sql ykval-resync.php ykval-checksum-deactivated	\
+	ykval-synchronize ykval-gen-clients
 MANS = ykval-queue.1 ykval-import.1 ykval-export.1		\
 	ykval-import-clients.1 ykval-export-clients.1		\
-	ykval-checksum-clients.1 ykval-checksum-deactivated.1
+	ykval-checksum-clients.1 ykval-checksum-deactivated.1	\
+	ykval-synchronize.1 ykval-gen-clients.1
 MUNIN = ykval-munin-ksmlatency.php ykval-munin-vallatency.php	\
 	ykval-munin-queuelength.php ykval-munin-responses.pl \
 	ykval-munin-yubikeystats.php
@@ -44,15 +46,19 @@ install:
 	install -D --mode 644 ykval-db-oci.php $(DESTDIR)$(phpprefix)/ykval-db-oci.php
 	install -D --mode 644 ykval-log.php $(DESTDIR)$(phpprefix)/ykval-log.php
 	install -D ykval-queue $(DESTDIR)$(sbinprefix)/ykval-queue
+	install -D ykval-synchronize $(DESTDIR)$(sbinprefix)/ykval-synchronize
 	install -D ykval-export $(DESTDIR)$(sbinprefix)/ykval-export
 	install -D ykval-import $(DESTDIR)$(sbinprefix)/ykval-import
+	install -D ykval-gen-clients $(DESTDIR)$(sbinprefix)/ykval-gen-clients
 	install -D ykval-export-clients $(DESTDIR)$(sbinprefix)/ykval-export-clients
 	install -D ykval-import-clients $(DESTDIR)$(sbinprefix)/ykval-import-clients
 	install -D ykval-checksum-clients $(DESTDIR)$(sbinprefix)/ykval-checksum-clients
 	install -D ykval-checksum-deactivated $(DESTDIR)$(sbinprefix)/ykval-checksum-deactivated
 	install -D ykval-queue.1 $(DESTDIR)$(manprefix)/ykval-queue.1
+	install -D ykval-synchronize.1 $(DESTDIR)$(manprefix)/ykval-synchronize.1
 	install -D ykval-import.1 $(DESTDIR)$(manprefix)/ykval-import.1
 	install -D ykval-export.1 $(DESTDIR)$(manprefix)/ykval-export.1
+	install -D ykval-gen-clients.1 $(DESTDIR)$(manprefix)/ykval-gen-clients.1
 	install -D ykval-import-clients.1 $(DESTDIR)$(manprefix)/ykval-import-clients.1
 	install -D ykval-export-clients.1 $(DESTDIR)$(manprefix)/ykval-export-clients.1
 	install -D ykval-checksum-clients.1 $(DESTDIR)$(manprefix)/ykval-checksum-clients.1
