@@ -17,17 +17,17 @@ git clone https://github.com/Yubico/yubikey-val-dpkg.git
 
 Build the package:
 
-git-buildpackage --git-builder="pdebuild --auto-debsign --pbuilder cowbuilder -- --basepath /var/cache/pbuilder/base-debian-sid.cow"
+git-buildpackage --git-pristine-tar --git-builder="pdebuild --auto-debsign --pbuilder cowbuilder -- --twice --basepath /var/cache/pbuilder/base-debian-sid.cow"
 
 If all goes well, you should have newly built packages in
 /var/cache/pbuilder/result/.
-
 
 Update the package to a new upstream release
 --------------------------------------------
 
 Import the new version:
-git-import-orig /path/to/new-release.tar.gz
+
+git-import-orig --pristine-tar /path/to/new-release.tar.gz
 
 Update debian/changelog for the new version.
 
