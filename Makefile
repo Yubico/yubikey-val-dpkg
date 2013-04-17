@@ -1,4 +1,31 @@
-VERSION = 2.22
+# Copyright (c) 2009-2013 Yubico AB
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#
+#   * Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#
+#   * Redistributions in binary form must reproduce the above
+#     copyright notice, this list of conditions and the following
+#     disclaimer in the documentation and/or other materials provided
+#     with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+VERSION = 2.23
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS ykval-checksum-clients			\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -18,7 +45,6 @@ MUNIN = ykval-munin-ksmlatency.php ykval-munin-vallatency.php	\
 DOCS = doc/ClientInfoFormat.wiki doc/Installation.wiki			\
 	doc/RevocationService.wiki doc/ServerReplicationProtocol.wiki	\
 	doc/SyncMonitor.wiki doc/Troubleshooting.wiki
-TMPDIR = /tmp/tmp.yubikey-val
 
 all:
 	@echo "Try 'make install' or 'make symlink'."
@@ -88,6 +114,8 @@ revoke:
 
 # Maintainer rules.
 
+PROJECT = $(PACKAGE)
+
 $(PACKAGE)-$(VERSION).tgz: $(FILES)
 	git submodule init
 	git submodule update
@@ -114,25 +142,13 @@ release: dist
 	fi
 	@head -1 NEWS | grep -q "Version $(VERSION) (released `date -I`)" || \
 		(echo 'error: You need to update date/version in NEWS'; exit 1)
+	@if test ! -d $(YUBICO_GITHUB_REPO); then \
+		echo "yubico.github.com repo not found!"; \
+		echo "Make sure that YUBICO_GITHUB_REPO is set"; \
+		exit 1; \
+	fi
 	gpg --detach-sign --default-key $(KEYID) $(PACKAGE)-$(VERSION).tgz
 	gpg --verify $(PACKAGE)-$(VERSION).tgz.sig
-
 	git tag -u $(KEYID) -m $(VERSION) $(PACKAGE)-$(VERSION)
-	git push
-	git push --tags
-	mkdir -p $(TMPDIR)
-	mv $(PACKAGE)-$(VERSION).tgz $(TMPDIR)
-	mv $(PACKAGE)-$(VERSION).tgz.sig $(TMPDIR)
-
-	git checkout gh-pages
-	mv $(TMPDIR)/$(PACKAGE)-$(VERSION).tgz releases/
-	mv $(TMPDIR)/$(PACKAGE)-$(VERSION).tgz.sig releases/
-	git add releases/$(PACKAGE)-$(VERSION).tgz
-	git add releases/$(PACKAGE)-$(VERSION).tgz.sig
-	rmdir --ignore-fail-on-non-empty $(TMPDIR)
-
-	x=$$(ls -1v releases/*.tgz | awk -F\- '{print $$3}' | sed 's/.tgz//' | paste -sd ',' - | sed 's/,/, /g' | sed 's/\([0-9.]\{1,\}\)/"\1"/g');sed -i -e "2s/\[.*\]/[$$x]/" releases.html
-	git add releases.html
-	git commit -m "Added tarball for release $(VERSION)"
-	git push
-	git checkout master
+	echo "Release created and tagged, remember to git push && git push --tags"
+	$(YUBICO_GITHUB_REPO)/publish $(PROJECT) $(VERSION) $(PACKAGE)-$(VERSION).tgz*
