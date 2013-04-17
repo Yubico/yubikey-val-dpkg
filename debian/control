@@ -1,14 +1,14 @@
 Source: yubikey-val
 Section: net
 Priority: extra
-Maintainer: Yubico Open Source Maintainers <ossmaint@yubico.com>
-Uploaders: Simon Josefsson <simon@josefsson.org>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Tommaso Galassi De Orchi <tom@yubico.com>
+Maintainer: Debian Authentication Maintainers <pkg-auth-maintainers@lists.alioth.debian.org>
+Uploaders: Simon Josefsson <simon@josefsson.org>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Tommaso Galassi De Orchi <tom@yubico.com>, Daniel Pocock <daniel@pocock.com.au>
 Build-Depends: debhelper (>= 9),
 	       po-debconf
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: https://github.com/Yubico/yubikey-val
 Vcs-Browser: https://github.com/Yubico/yubikey-val-dpkg
-Vcs-Git: git://github.com/Yubico/yubikey-val.git
+Vcs-Git: git://github.com/Yubico/yubikey-val-dpkg.git
 
 Package: yubikey-val
 Architecture: all
