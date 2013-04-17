@@ -1,5 +1,5 @@
-yubikey-val (2.22-1) unstable; urgency=low
+yubikey-val (2.23-1) unstable; urgency=low
 
   * Initial package (closes: #699530).
 
- -- Dain Nilsson <dain@yubico.com>  Thu, 12 Apr 2013 14:35:23 +0100
+ -- Dain Nilsson <dain@yubico.com>  Wed, 17 Apr 2013 17:29:02 +0200
