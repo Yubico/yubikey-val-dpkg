@@ -1,3 +1,39 @@
+2013-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.23.
+
+2013-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile: Add license to Makefile.
+
+2013-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, ykval-common.php, ykval-config.php, ykval-sync.php,
+	ykval-verify.php: Use LF as EOL consistently.
+
+2013-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2013-04-10  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Updated release publishing.
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* Makefile, NEWS: Updated version number to (unreleased) 2.23
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* ykval-checksum-clients, ykval-checksum-deactivated, ykval-export,
+	ykval-export-clients, ykval-gen-clients, ykval-import,
+	ykval-import-clients, ykval-synchronize: Removed empty line from
+	output.
+
+2013-03-12  Dain Nilsson <dain@yubico.com>
+
+	* NEWS: Version 2.22
+
 2013-03-12  Simon Josefsson <simon@josefsson.org>
 
 	* ykval-verify.php: Log query for POST requests too.

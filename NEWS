@@ -1,4 +1,12 @@
-* Version 2.22 (unreleased)
+* Version 2.23 (released 2013-04-17)
+
+  * Removed initial empty line from output for all commands.
+
+  * Use LF as EOL consistently.
+
+  * Updated release procedure.
+
+* Version 2.22 (released 2013-03-12)
 
   * Added the ability to send yk=all to ykval-resync.php to queue sync
     of all known active YubiKeys.
@@ -7,6 +15,8 @@
     server.
 
   * Added ykval-gen-clients to generate API clients.
+
+  * Log query for POST requests too.
 
 * Version 2.21 (released 2013-02-05)
 
