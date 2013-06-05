@@ -16,10 +16,7 @@ dbc_go yubikey-val $@
 
 if [ `ykval-export-clients 2>/dev/null|grep -c ','` -eq 0 ]; then
     #No clients, create one
-    if `ykval-gen-clients --urandom >/dev/null 2>&1`; then
-        db_input high yubikey-val/initial-client || true
-        db_go
-    fi
+    ykval-gen-clients --urandom >/dev/null 2>&1 || true
 fi
 
 if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/yubikey-val.conf ]; then

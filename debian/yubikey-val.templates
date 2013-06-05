@@ -1,7 +1,0 @@
-Template: yubikey-val/initial-client
-Type: note
-_Description: Initial API client
- An API client has been created to ease getting started.
- You can get the client secret by running:
- .
- user:~$ sudo ykval-export-clients
