@@ -1,11 +1,8 @@
-yubikey-val for Debian
-----------------------
-
-We describe here one way to work with this package on a Wheezy system.
+We describe here one way to work with the package sources.
 
 Initialize cowbuilder:
 
-sudo cowbuilder --create --distribution sid --basepath /var/cache/pbuilder/base-debian-sid.cow
+sudo cowbuilder --create --distribution sid --mirror http://http.debian.net/debian --debootstrapopts "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg" --basepath /var/cache/pbuilder/base-debian-sid.cow
 
 Optionally update cowbuilder:
 
@@ -22,13 +19,6 @@ git-buildpackage --git-pristine-tar --git-builder="pdebuild --auto-debsign --pbu
 If all goes well, you should have newly built packages in
 /var/cache/pbuilder/result/.
 
-Update the package to a new upstream release
---------------------------------------------
-
-Import the new version:
+Update the package to a new upstream release (don't forget debian/changelog):
 
 git-import-orig --pristine-tar /path/to/new-release.tar.gz
-
-Update debian/changelog for the new version.
-
-Commit changes, and don't forget to git push && git push --tags
