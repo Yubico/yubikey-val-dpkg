@@ -1,8 +1,9 @@
 yubikey-val (2.23-2) unstable; urgency=low
 
+  [ Dain Nilsson ]
   * Removed debconf note (closes: #710844).
 
- -- Dain Nilsson <dain@yubico.com>  Wed, 05 Jun 2013 14:19:01 +0200
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 05 Sep 2013 20:20:26 +0200
 
 yubikey-val (2.23-1) unstable; urgency=low
 
