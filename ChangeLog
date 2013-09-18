@@ -1,3 +1,35 @@
+2013-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.24.
+
+2013-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile, NEWS, README: Improve README and include in tarball.
+
+2013-09-18  Simon Josefsson <simon@josefsson.org>
+
+	* doc: Bump.
+
+2013-07-03  Klas Lindfors <klas@yubico.com>
+
+	* ykval-db-oci.php: add license to ykval-db-oci.php
+
+2013-06-11  Dain Nilsson <dain@yubico.com>
+
+	* NEWS, ykval-gen-clients: Remove space after comma in csv output.
+
+2013-04-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile: Fix make release output.
+
+2013-04-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile: Fix check for YUBICO_GITHUB_REPO.
+
+2013-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile, NEWS: Bump version.
+
 2013-04-17  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.23.
