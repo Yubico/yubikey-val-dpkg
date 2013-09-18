@@ -1,3 +1,11 @@
+yubikey-val (2.24-1) unstable; urgency=low
+
+  * New upstream release.
+  * Improve README.source.
+  * Change my uploader email address.
+
+ -- Simon Josefsson <simon@yubico.com>  Wed, 18 Sep 2013 17:12:49 +0200
+
 yubikey-val (2.23-2) unstable; urgency=low
 
   [ Dain Nilsson ]
