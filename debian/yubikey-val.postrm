@@ -20,6 +20,7 @@ if [ "$1" = "purge" ]; then
     rm -rf /etc/yubico/val
 fi
 
+#Apache configuration
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
     CONF="yubikey-val"
     COMMON_STATE=$(dpkg-query -f '${Status}' -W 'apache2.2-common' 2>/dev/null | awk '{print $3}' || true)

@@ -1,3 +1,9 @@
+yubikey-val (2.24-2) unstable; urgency=medium
+
+  * Fixes for Apache 2.4.
+
+ -- Dain Nilsson <dain@yubico.com>  Fri, 25 Apr 2014 12:32:40 +0200
+
 yubikey-val (2.24-1) unstable; urgency=low
 
   * New upstream release.

@@ -19,7 +19,7 @@ if [ `ykval-export-clients 2>/dev/null|grep -c ','` -eq 0 ]; then
     ykval-gen-clients --urandom >/dev/null 2>&1 || true
 fi
 
-
+#Apache configuration
 if [ "$1" = "configure" ] ; then
     CONF="yubikey-val"
 
