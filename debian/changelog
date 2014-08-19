@@ -2,6 +2,7 @@ yubikey-val (2.25-1) unstable; urgency=medium
 
   [ Simon Josefsson]
   * Fix Homepage URL.
+  * New upstream release.
 
   [ Dain Nilsson ]
   * Fixes for Apache 2.4.
