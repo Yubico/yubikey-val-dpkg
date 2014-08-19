@@ -1,3 +1,177 @@
+2014-08-18  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* NEWS: Update NEWS
+
+2014-08-18  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* NEWS: Updated NEWS for 2.25 release
+
+2014-08-18  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* .gitmodules: Deleted .gitmodules
+
+2014-08-14  Klas Lindfors <klas@yubico.com>
+
+	* doc/GeneratingClients.adoc,
+	doc/GettingStartedWritingClients.adoc, doc/ImportExportData.adoc,
+	doc/Installation.adoc, doc/MakeRelease.adoc, doc/MuninProbes.adoc,
+	doc/RevocationService.adoc, doc/ServerReplicationProtocol.adoc,
+	doc/SyncMonitor.adoc, doc/Troubleshooting.adoc,
+	doc/ValidationServerAlgorithm.adoc, doc/YubiKeyInfoFormat.adoc: 
+	fixup formatting
+
+2014-08-13  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/GettingStartedWritingClients.adoc: Update
+	GettingStartedWritingClients.adoc
+
+2014-08-12  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, README: drop mentions of submodules
+
+2014-08-12  Klas Lindfors <klas@yubico.com>
+
+	* doc/ValidationProtocolV20.adoc: add header option to all tables
+
+2014-08-12  Klas Lindfors <klas@yubico.com>
+
+	* doc/ValidationProtocolV20.adoc: add header option for tables
+
+2014-08-12  Henrik Stråth <henrik.strath@gmail.com>
+
+	* doc/ValidationProtocolV20.adoc: Stricter Asciidoc, that now works
+	on opensource.yubico.com as well
+
+2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
+
+	* doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
+	doc/legacy/ValidationProtocolV10.adoc,
+	doc/legacy/ValidationProtocolV11.adoc: Restructured legacy docs
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ValidationProtocolV20.adoc: Update ValidationProtocolV20.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ValidationProtocolV20.adoc: Update ValidationProtocolV20.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ValidationProtocolV20.adoc: Update ValidationProtocolV20.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ValidationProtocolV20.adoc: Update ValidationProtocolV20.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ValidationProtocolV20.adoc: Update ValidationProtocolV20.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/YubiKeyInfoFormat.adoc: Update YubiKeyInfoFormat.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ClientInfoFormat.adoc: Delete ClientInfoFormat.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/YubiKeyInfoFormat.adoc: Update YubiKeyInfoFormat.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/MakeRelease.adoc: Update MakeRelease.adoc
+
+2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/ClientInfoFormat.adoc: Update ClientInfoFormat.adoc
+
+2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
+
+	* doc, doc/ClientInfoFormat.adoc, doc/GeneratingClients.adoc,
+	doc/GettingStartedWritingClients.adoc, doc/ImportExportData.adoc,
+	doc/Installation.adoc, doc/MakeRelease.adoc, doc/MuninProbes.adoc,
+	doc/RevocationService.adoc, doc/ServerReplicationProtocol.adoc,
+	doc/SyncMonitor.adoc, doc/Troubleshooting.adoc,
+	doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
+	doc/ValidationProtocolV20.adoc, doc/ValidationServerAlgorithm.adoc,
+	doc/YubiKeyInfoFormat.adoc: removed submodule
+
+2014-06-26  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: add php 5.6 for travis
+
+2014-02-19  Klas Lindfors <klas@yubico.com>
+
+	* BLURB: add BLURB
+
+2014-01-07  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synchronize, ykval-synclib.php: always verify ssl peer fixes #15
+
+2013-12-20  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: drop travis again.. apparently hhvm doesn't support
+	-B which we use
+
+2013-12-20  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: add hhvm to travis will this work?
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: skip the test of gen-client since that breaks
+	on php 5.2
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: add output on failure
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: fix interpreter for scripts in test
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: run a validation with non-existing client
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: test generating a new client as well
+
+2013-11-11  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: run the export commands
+
+2013-11-08  Simon Josefsson <simon@josefsson.org>
+
+	* tests/DbTest.php, tests/syncLibTest.php, tests/test-multi.php: 
+	Drop obsolete tests/.
+
+2013-11-08  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: more php versions for the tests
+
+2013-11-08  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: start with older php version
+
+2013-11-08  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: actually start the server component
+
+2013-11-08  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml, travis/selftest.sh, travis/server.pl: add travis ci
+	for yubikey-val
+
+2013-10-16  Klas Lindfors <klas@yubico.com>
+
+	* ykval-common.php: let the ksm decrypt function always call
+	retrieveUrlAsync() fixes #12
+
 2013-09-18  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.24.
