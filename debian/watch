@@ -1,2 +1,2 @@
 version=3
-http://yubico.github.com/yubikey-val/releases.html .*/yubikey-val-(\d[\d.]*)\.(?:zip|tgz|tbz2|txz|tar\.gz|tar\.bz2|tar\.xz)
+opts=pgpsigurlmangle=s/$/.sig/ https://developers.yubico.com/yubikey-val/releases.html .*/yubikey-val-(\d[\d.]*)\.(?:zip|tgz|tbz2|txz|tar\.gz|tar\.bz2|tar\.xz)
