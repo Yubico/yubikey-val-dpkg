@@ -1,8 +1,13 @@
-yubikey-val (2.24-2) unstable; urgency=medium
+yubikey-val (2.25-1) unstable; urgency=medium
 
+  [ Simon Josefsson]
+  * Fix Homepage URL.
+
+  [ Dain Nilsson ]
   * Fixes for Apache 2.4.
+  * Bump Standards-Version to 3.9.5.
 
- -- Dain Nilsson <dain@yubico.com>  Fri, 25 Apr 2014 12:32:40 +0200
+ -- Simon Josefsson <simon@yubico.com>  Tue, 19 Aug 2014 09:59:15 +0200
 
 yubikey-val (2.24-1) unstable; urgency=low
 
