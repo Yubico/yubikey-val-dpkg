@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-VERSION = 2.24
+VERSION = 2.25
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS README ykval-checksum-clients		\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -42,13 +42,13 @@ MANS = ykval-queue.1 ykval-import.1 ykval-export.1		\
 MUNIN = ykval-munin-ksmlatency.php ykval-munin-vallatency.php	\
 	ykval-munin-queuelength.php ykval-munin-responses.pl \
 	ykval-munin-yubikeystats.php
-DOCS = doc/ClientInfoFormat.wiki doc/Installation.wiki			\
-	doc/RevocationService.wiki doc/ServerReplicationProtocol.wiki	\
-	doc/SyncMonitor.wiki doc/Troubleshooting.wiki
+DOCS = doc/ImportExportData.adoc doc/Installation.adoc			\
+	doc/RevocationService.adoc doc/ServerReplicationProtocol.adoc	\
+	doc/SyncMonitor.adoc doc/Troubleshooting.adoc
 
 all:
 	@echo "Try 'make install' or 'make symlink'."
-	@echo "Docs: https://github.com/Yubico/yubikey-val/wiki/Installation"
+	@echo "Docs: https://github.com/Yubico/yubikey-val/docs/Installation.adoc"
 	@exit 1
 
 # Installation rules.
@@ -117,8 +117,6 @@ revoke:
 PROJECT = $(PACKAGE)
 
 $(PACKAGE)-$(VERSION).tgz: $(FILES)
-	git submodule init
-	git submodule update
 	mkdir $(PACKAGE)-$(VERSION) $(PACKAGE)-$(VERSION)/doc
 	cp $(CODE) $(MANS) $(MUNIN) $(PACKAGE)-$(VERSION)/
 	cp $(DOCS) $(PACKAGE)-$(VERSION)/doc/
