@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: yubikey-val
 Upstream-Contact: ossmaint@yubico.com
-Source: https://github.com/Yubico/yubikey-val
+Source: https://developers.yubico.com/yubikey-val/
 
 Files: *
 Copyright: Copyright (c) 2009-2013 Yubico AB
