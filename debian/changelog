@@ -4,12 +4,14 @@ yubikey-val (2.25-1) unstable; urgency=medium
   * Fix Homepage URL.
   * New upstream release.
   * Fix watch file and add upstream-signing-key.pgp.
+  * Fix URLs in README.Debian.
+  * Reduce Uploaders.
 
   [ Dain Nilsson ]
   * Fixes for Apache 2.4.
   * Bump Standards-Version to 3.9.5.
 
- -- Simon Josefsson <simon@yubico.com>  Tue, 19 Aug 2014 09:59:15 +0200
+ -- Simon Josefsson <simon@yubico.com>  Thu, 04 Sep 2014 13:09:28 +0200
 
 yubikey-val (2.24-1) unstable; urgency=low
 
