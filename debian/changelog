@@ -1,6 +1,10 @@
 yubikey-val (2.25-2) unstable; urgency=medium
 
-  * fix postgres dbconfig.
+  [ Klas Lindfors ]
+  * Fix postgres dbconfig.
+
+  [ Simon Josefsson]
+  * Bump Standards-Version to 3.9.6.
 
  -- Klas Lindfors <klas@yubico.com>  Fri, 19 Sep 2014 16:13:22 +0200
 
