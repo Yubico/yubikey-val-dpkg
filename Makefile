@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-VERSION = 2.25
+VERSION = 2.26
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS README ykval-checksum-clients		\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -42,13 +42,16 @@ MANS = ykval-queue.1 ykval-import.1 ykval-export.1		\
 MUNIN = ykval-munin-ksmlatency.php ykval-munin-vallatency.php	\
 	ykval-munin-queuelength.php ykval-munin-responses.pl \
 	ykval-munin-yubikeystats.php
-DOCS = doc/ImportExportData.adoc doc/Installation.adoc			\
-	doc/RevocationService.adoc doc/ServerReplicationProtocol.adoc	\
-	doc/SyncMonitor.adoc doc/Troubleshooting.adoc
+DOCS = doc/GeneratingClients.adoc doc/GettingStartedWritingClients.adoc \
+	doc/ImportExportData.adoc doc/Installation.adoc doc/MakeRelease.adoc \
+	doc/MuninProbes.adoc doc/RevocationService.adoc \
+	doc/ServerReplicationProtocol.adoc doc/SyncMonitor.adoc \
+	doc/Troubleshooting.adoc doc/ValidationProtocolV20.adoc \
+	doc/ValidationServerAlgorithm.adoc doc/YubiKeyInfoFormat.adoc
 
 all:
 	@echo "Try 'make install' or 'make symlink'."
-	@echo "Docs: https://github.com/Yubico/yubikey-val/docs/Installation.adoc"
+	@echo "Docs: https://developers.yubico.com/yubikey-val/doc/Installation.html"
 	@exit 1
 
 # Installation rules.
