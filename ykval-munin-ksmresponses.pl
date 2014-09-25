@@ -32,9 +32,10 @@
 use strict;
 use warnings;
 
-use Env qw/YKVAL_LOGFILE/;
+use Env qw/YKVAL_LOGFILE YKVAL_KSMS/;
 
-my @types = qw/OK BAD_OTP MISSING_PARAMETER BACKEND_ERROR BAD_SIGNATURE DELAYED_OTP NO_SUCH_CLIENT NOT_ENOUGH_ANSWERS REPLAYED_REQUEST REPLAYED_OTP OPERATION_NOT_ALLOWED/;
+my @ksms = split(/ /, $YKVAL_KSMS);
+die "YKVAL_KSMS has to be set with the hostnames of any ksms used." unless @ksms;
 
 my $logfile = $YKVAL_LOGFILE;
 $logfile = "/var/log/syslog" unless $logfile;
@@ -44,17 +45,17 @@ if(@ARGV > 0) {
     print "yes\n";
     exit 0;
   } elsif($ARGV[0] eq "config") {
-    print "multigraph ykval_responses\n";
-    print "graph_title YK-VAL response types\n";
+    print "multigraph ykval_ksmresponses\n";
+    print "graph_title YK-VAL KSM responses\n";
     print "graph_vlabel responses\n";
     print "graph_category ykval\n";
 
-    foreach my $type (@types) {
-      print "${type}.label ${type}\n";
-      print "${type}.type DERIVE\n";
-      print "${type}.info Responses\n";
-      print "${type}.min 0\n";
-      print "${type}.draw LINE1\n";
+    foreach my $ksm (@ksms) {
+      print "${ksm}.label ${ksm}\n";
+      print "${ksm}.type DERIVE\n";
+      print "${ksm}.info Responses\n";
+      print "${ksm}.min 0\n";
+      print "${ksm}.draw LINE1\n";
     }
     exit 0
   }
@@ -62,18 +63,17 @@ if(@ARGV > 0) {
   exit 1
 }
 
-my %statuses = map { $_ => 0 } @types;
-
-my $reg = qr/status=([A-Z_]+)/;
-open (my $file, "-|", "grep 'ykval-verify.*Response' $logfile");
+my %responses = map { $_ => 0 } @ksms;
+my $reg = qr/url=https?:\/\/([a-z0-9A-Z_-]+)\./;
+open (my $file, "-|", "grep 'YK-KSM errno/error: 0/' $logfile");
 while(<$file>) {
   next unless /$reg/;
-  $statuses{$1}++;
+  $responses{$1}++;
 }
 close $file;
 
-print "multigraph ykval_responses\n";
-foreach my $type (@types) {
-  print "${type}.value ${statuses{$type}}\n";
+print "multigraph ykval_ksmresponses\n";
+foreach my $ksm (@ksms) {
+  print "${ksm}.value ${responses{$ksm}}\n";
 }
 exit 0
