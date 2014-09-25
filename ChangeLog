@@ -1,3 +1,55 @@
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: release version 2.27
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for ykval-munin-ksmresponses
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* Makefile: install ykval-munin-ksmresponses.pl
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-responses.pl: change to use variable file handle
+	instead of bare-word
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-ksmresponses.pl: add munin plugin for parsing out
+	ksmresponses
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Doc fix.
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* BLURB, README: Doc fix.
+
+2014-09-24  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/GettingStartedWritingClients.adoc: Fixed broken link in docs.
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-responses.pl: take logfile from env if set, default to
+	/var/log/syslog
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* ykval-sync.php, ykval-synclib.php: Drop log level of useless
+	messages.
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump version
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for 2.26
+
 2014-09-23  Klas Lindfors <klas@yubico.com>
 
 	* ykval-log.php: make sure that we only log strings
