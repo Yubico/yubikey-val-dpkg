@@ -1,3 +1,9 @@
+yubikey-val (2.27-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Klas Lindfors <klas@yubico.com>  Thu, 25 Sep 2014 10:48:32 +0200
+
 yubikey-val (2.26-1) unstable; urgency=medium
 
   * New upstream release.
