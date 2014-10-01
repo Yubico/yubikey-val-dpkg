@@ -1,5 +1,6 @@
-#!/usr/bin/php
-<?php
+#!/usr/bin/perl
+#%# family=auto
+#%# capabilities=autoconf
 
 # Copyright (c) 2012-2014 Yubico AB
 # All rights reserved.
@@ -28,56 +29,51 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-$verbose = 0;
-if (isset($argv[1])) {
-  if ($argv[1] == "-h" || $argv[1] == "--help") {
-    print "Usage: " . $argv[0] . " [-h|--help] [-v]\n";
-    exit(1);
+use strict;
+use warnings;
+
+use Env qw/YKVAL_LOGFILE YKVAL_KSMS/;
+
+my @ksms = split(/ /, $YKVAL_KSMS);
+die "YKVAL_KSMS has to be set with the hostnames of any ksms used." unless @ksms;
+
+my $logfile = $YKVAL_LOGFILE;
+$logfile = "/var/log/syslog" unless $logfile;
+
+if(@ARGV > 0) {
+  if($ARGV[0] eq "autoconf") {
+    print "yes\n";
+    exit 0;
+  } elsif($ARGV[0] eq "config") {
+    print "multigraph ykval_ksmresponses\n";
+    print "graph_title YK-VAL KSM responses\n";
+    print "graph_vlabel responses\n";
+    print "graph_category ykval\n";
+
+    foreach my $ksm (@ksms) {
+      print "${ksm}.label ${ksm}\n";
+      print "${ksm}.type DERIVE\n";
+      print "${ksm}.info Responses\n";
+      print "${ksm}.min 0\n";
+      print "${ksm}.draw LINE1\n";
+    }
+    exit 0
   }
-
-  if ($argv[1] && $argv[1] != "-v") {
-    print $argv[0] . ": invalid option -- '" . $argv[0] . "'\n";
-    print "Try `" . $argv[0] . " --help' for more information.\n";
-    exit(1);
-  }
-
-  $verbose = $argv[1] == "-v";
+  print "unknown command '${ARGV[0]}'\n";
+  exit 1
 }
 
-set_include_path(get_include_path() . PATH_SEPARATOR .
-		 "/usr/share/yubikey-val:/etc/yubico/val");
-
-require_once 'ykval-config.php';
-require_once 'ykval-db.php';
-
-$logname="ykval-checksum-deactivated";
-$myLog = new Log($logname);
-
-$db = Db::GetDatabaseHandle($baseParams, $logname);
-
-if (!$db->connect()) {
-  $myLog->log(LOG_WARNING, "Could not connect to database");
-  exit(1);
+my %responses = map { $_ => 0 } @ksms;
+my $reg = qr/url=https?:\/\/([a-z0-9A-Z_-]+)\./;
+open (my $file, "-|", "grep 'YK-KSM errno/error: 0/' $logfile");
+while(<$file>) {
+  next unless /$reg/;
+  $responses{$1}++;
 }
+close $file;
 
-$everything = "";
-$result=$db->customQuery("SELECT yk_publicname, yk_counter, yk_use ".
-			 "FROM yubikeys WHERE active = false ".
-			 "ORDER BY yk_publicname");
-while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-  $everything .=
-    $row['yk_publicname'] . "\t" . $row['yk_counter'] . "\t" . $row['yk_use'] .
-    "\n";
+print "multigraph ykval_ksmresponses\n";
+foreach my $ksm (@ksms) {
+  print "${ksm}.value ${responses{$ksm}}\n";
 }
-
-$hash = sha1 ($everything);
-
-if ($verbose) {
-  print $everything;
-}
-print substr ($hash, 0, 10) . "\n";
-
-$result=null;
-$db=null;
-
-?>
+exit 0

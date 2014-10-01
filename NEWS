@@ -1,3 +1,19 @@
+* Version 2.27 (released 2014-09-25)
+
+  * Further logging updates.
+
+  * ykval-munin-responses: Make log file configurable.
+
+  * ykval-munin-ksmresponses: New munin probe.
+
+* Version 2.26 (released 2014-09-24)
+
+  * Logging updates.
+
+  * Optimization fix in the checksum scripts.
+
+  * Documentation fixes.
+
 * Version 2.25 (released 2014-08-18)
   
   * Now works with 'allow_url_fopen' == false.

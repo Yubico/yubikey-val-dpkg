@@ -1,3 +1,104 @@
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: release version 2.27
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for ykval-munin-ksmresponses
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* Makefile: install ykval-munin-ksmresponses.pl
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-responses.pl: change to use variable file handle
+	instead of bare-word
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-ksmresponses.pl: add munin plugin for parsing out
+	ksmresponses
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Doc fix.
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* BLURB, README: Doc fix.
+
+2014-09-24  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/GettingStartedWritingClients.adoc: Fixed broken link in docs.
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-responses.pl: take logfile from env if set, default to
+	/var/log/syslog
+
+2014-09-24  Simon Josefsson <simon@josefsson.org>
+
+	* ykval-sync.php, ykval-synclib.php: Drop log level of useless
+	messages.
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump version
+
+2014-09-24  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for 2.26
+
+2014-09-23  Klas Lindfors <klas@yubico.com>
+
+	* ykval-log.php: make sure that we only log strings
+
+2014-09-23  Simon Josefsson <simon@josefsson.org>
+
+	* ykval-checksum-clients, ykval-checksum-deactivated: Optimize.
+	From Klas.
+
+2014-09-23  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, ykval-export-clients.1, ykval-export.1,
+	ykval-import-clients.1, ykval-import.1, ykval-sync.php,
+	ykval-synclib.php: change wiki links
+
+2014-09-23  Klas Lindfors <klas@yubico.com>
+
+	* doc/ClientInfoFormat.adoc: add ClientInfoFormat from the wiki
+
+2014-09-23  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: move some logging in reSync() to LOG_DEBUG this is only run from ykval-queue fixes #24
+
+2014-09-23  Klas Lindfors <klas@yubico.com>
+
+	* ykval-common.php: raise logging on KSM response
+
+2014-09-18  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* : Merge pull request #25 from vkarlsen/master Specified that the API key has to be base64decoded
+
+2014-09-12  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump versions after release
+
+2014-08-27  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: again try to fix up the travis run for postfix
+
+2014-08-27  Klas Lindfors <klas@yubico.com>
+
+	* travis/selftest.sh: try to check if postgres is running on travis there seems to be issues where the postgres service isn't started
+	when our tests are run, would this help?
+
+2014-08-27  Klas Lindfors <klas@yubico.com>
+
+	* Makefile: fixup installation of documents since they moved from .wiki extension to .adoc also add more
+	documents to be installed fixes #23
+
 2014-08-18  Henrik Stråth <minisu@users.noreply.github.com>
 
 	* NEWS: Update NEWS
@@ -44,9 +145,8 @@
 
 2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
 
-	* doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
-	doc/legacy/ValidationProtocolV10.adoc,
-	doc/legacy/ValidationProtocolV11.adoc: Restructured legacy docs
+	* doc/{ => legacy}/ValidationProtocolV10.adoc, doc/{ =>
+	legacy}/ValidationProtocolV11.adoc: Restructured legacy docs
 
 2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
 
@@ -381,12 +481,12 @@
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
-	* Makefile, ykval-checksum-clients, ykval-checksum-clients.php,
-	ykval-checksum-deactivated, ykval-checksum-deactivated.php,
-	ykval-export, ykval-export-clients, ykval-export-clients.php,
-	ykval-export.php, ykval-import, ykval-import-clients,
-	ykval-import-clients.php, ykval-import.php, ykval-queue,
-	ykval-queue.php: Removed file extensions of executables.
+	* Makefile, ykval-checksum-clients.php => ykval-checksum-clients,
+	ykval-checksum-deactivated.php => ykval-checksum-deactivated,
+	ykval-export.php => ykval-export, ykval-export-clients.php =>
+	ykval-export-clients, ykval-import.php => ykval-import,
+	ykval-import-clients.php => ykval-import-clients, ykval-queue.php
+	=> ykval-queue: Removed file extensions of executables.
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
@@ -1631,7 +1731,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* test-multi.php, tests/test-multi.php: Move.
+	* test-multi.php => tests/test-multi.php: Move.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -1664,7 +1764,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile, lib/Db.php, ykval-db.php: Add install target.
+	* Makefile, lib/Db.php => ykval-db.php: Add install target.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -1917,8 +2017,8 @@
 
 2009-05-04  Simon Josefsson <simon@josefsson.org>
 
-	* common.php, config.php.sample, ping.php, verify.php,
-	ykval-common.php, ykval-config.php, ykval-verify.php: Rename and
+	* ping.php, common.php => ykval-common.php, config.php.sample =>
+	ykval-config.php, verify.php => ykval-verify.php: Rename and
 	cleanup.
 
 2009-04-27  Simon Josefsson <simon@josefsson.org>
