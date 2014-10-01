@@ -1,8 +1,12 @@
 yubikey-val (2.27-1) unstable; urgency=medium
 
+  [ Klas Lindfors ]
   * New upstream release.
 
- -- Klas Lindfors <klas@yubico.com>  Thu, 25 Sep 2014 10:48:32 +0200
+  [ Simon Josefsson ]
+  * Update upstream-signing-key.pgp.
+
+ -- Simon Josefsson <simon@yubico.com>  Wed, 01 Oct 2014 18:09:39 +0200
 
 yubikey-val (2.26-1) unstable; urgency=medium
 
