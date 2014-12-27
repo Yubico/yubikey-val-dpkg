@@ -1,5 +1,8 @@
 yubikey-val (2.27-2) unstable; urgency=low
 
+  [ Klas Lindfors ]
+  * Fix watch file.
+
   [ Simon Josefsson ]
   * Change my email.
 
