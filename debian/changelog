@@ -1,3 +1,10 @@
+yubikey-val (2.27-2) unstable; urgency=low
+
+  [ Simon Josefsson ]
+  * Change my email.
+
+ -- Simon Josefsson <simon@josefsson.org>  Sat, 27 Dec 2014 22:58:58 +0100
+
 yubikey-val (2.27-1) unstable; urgency=medium
 
   [ Klas Lindfors ]

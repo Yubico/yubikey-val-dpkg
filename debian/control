@@ -2,7 +2,7 @@ Source: yubikey-val
 Section: net
 Priority: extra
 Maintainer: Debian Authentication Maintainers <pkg-auth-maintainers@lists.alioth.debian.org>
-Uploaders: Simon Josefsson <simon@yubico.com>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Daniel Pocock <daniel@pocock.com.au>
+Uploaders: Simon Josefsson <simon@josefsson.org>, Klas Lindfors <klas@yubico.com>, Dain Nilsson <dain@yubico.com>, Daniel Pocock <daniel@pocock.com.au>
 Build-Depends: debhelper (>= 9),
 	       po-debconf
 Standards-Version: 3.9.6
