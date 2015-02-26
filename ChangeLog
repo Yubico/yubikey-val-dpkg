@@ -1,3 +1,68 @@
+2015-02-11  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for 2.28
+
+2015-01-09  Dain Nilsson <dain@yubico.com>
+
+	* Makefile, doc/Getting_Started_Writing_Clients.adoc,
+	ykval-nagios-queuelength.1, ykval-nagios-queuelength.php: Added link
+	to upgrade.yubico.com
+
+2014-11-26  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/Installation.adoc: Update Installation.adoc
+
+2014-10-30  Dain Nilsson <dain@yubico.com>
+
+	* Makefile: Fix doc/* names in Makefile.
+
+2014-10-29  Dain Nilsson <dain@yubico.com>
+
+	* doc/Installation.adoc: Fix __VARIABLE_NAMES__.
+
+2014-10-29  Dain Nilsson <dain@yubico.com>
+
+	* doc/{ClientInfoFormat.adoc => Client_Info_Format.adoc},
+	doc/{GeneratingClients.adoc => Generating_Clients.adoc},
+	doc/{GettingStartedWritingClients.adoc =>
+	Getting_Started_Writing_Clients.adoc}, doc/ImportExportData.adoc,
+	doc/Import_Export_Data.adoc, doc/Installation.adoc,
+	doc/{MakeRelease.adoc => Make_Release.adoc}, doc/MuninProbes.adoc,
+	doc/Munin_Probes.adoc, doc/{RevocationService.adoc =>
+	Revocation_Service.adoc}, doc/{ServerReplicationProtocol.adoc =>
+	Server_Replication_Protocol.adoc}, doc/{SyncMonitor.adoc =>
+	Sync_Monitor.adoc}, doc/Troubleshooting.adoc,
+	doc/{ValidationProtocolV20.adoc => Validation_Protocol_V2.0.adoc},
+	doc/{ValidationServerAlgorithm.adoc =>
+	Validation_Server_Algorithm.adoc}, doc/YubiKeyInfoFormat.adoc,
+	doc/YubiKey_Info_Format.adoc,
+	doc/legacy/{ValidationProtocolV10.adoc =>
+	Validation_Protocol_V1.0.adoc},
+	doc/legacy/{ValidationProtocolV11.adoc =>
+	Validation_Protocol_V1.1.adoc}: Improved asciidoc formatting
+
+2014-10-29  Henrik Stråth <henrik@yubico.com>
+
+	* README.adoc: symlinked README
+
+2014-10-29  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* README: Update README
+
+2014-10-14  Klas Lindfors <klas@yubico.com>
+
+	* ykval-munin-queuelength.php: refactor queuelength munin graph to
+	show individual values as an AREASTACK graph.
+
+2014-09-27  Dain Nilsson <dain@yubico.com>
+
+	* ykval-common.php, ykval-verify.php: Use constant time string
+	comparisson for validating HMAC signature (fixes #26).
+
+2014-09-25  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump versions
+
 2014-09-25  Klas Lindfors <klas@yubico.com>
 
 	* NEWS: release version 2.27
