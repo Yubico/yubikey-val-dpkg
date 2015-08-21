@@ -1,6 +1,7 @@
 yubikey-val (2.29-1) unstable; urgency=low
 
   * New upstream release.
+  * Update debian/README.source.
 
  -- Simon Josefsson <simon@josefsson.org>  Fri, 21 Aug 2015 12:05:10 +0200
 
