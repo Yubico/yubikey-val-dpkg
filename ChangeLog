@@ -1,3 +1,49 @@
+2015-05-27  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: NEWS for 2.29
+
+2015-05-20  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #29 from jschauma/master use https URL to allow anonymous cloning
+
+2015-04-14  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Reduce argument passing.  - set curlopts directly in wrapper invocation.
+
+2015-04-14  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Set __YKVAL_SYNC_CURL_OPTS__ for resync
+	requests.  - Ensure sync/resync requests set the same curl options.  - This changes a debug message from "url is " to 	"YK-VAL resync adding URL: " - curlopts is now a property of SyncLib class.  	Removes duplication between sync/resync code.
+
+2015-04-14  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-config.php: Have enough rope to hang
+	yourself.  - Don't be overly strict, 	and allow users to hang themselves in they want to.
+
+2015-04-13  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-config.php, ykval-synclib.php,
+	ykval-verify.php: Allowed certain cURL options to be configurable.  - When calling either URLs in the sync pool or the KSMs,     the following curl options are configurable;     CURLOPT_PROTOCOLS     CURLOPT_IPRESOLVE     CURLOPT_SSLVERSION     CURLOPT_SSL_VERIFYPEER     CURLOPT_SSL_VERIFYHOST     CURLOPT_CAINFO     CURLOPT_CAPATH
+
+2015-04-13  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-config.php: Removed php closing tag.  - Considered a best practice, 	avoids the possibility of introducing whitespace after the closing
+		tag.
+
+2015-02-24  Henrik Stråth <minisu@users.noreply.github.com>
+
+	* doc/Installation.adoc: Added .conf extension to Apache config
+	files.  Required in Apache 2.4. Supported in Apache 2.2.
+
+2015-02-11  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: travis doesn't have php 5.2 anymore
+
+2015-02-11  Klas Lindfors <klas@yubico.com>
+
+	* : commit f02d5c250cf94be583f20e919b494947d5c3725b Author: Klas
+	Lindfors <klas@yubico.com> Date:   Wed Feb 11 09:43:41 2015 +0100
+
 2015-02-11  Klas Lindfors <klas@yubico.com>
 
 	* NEWS: NEWS for 2.28
@@ -7,6 +53,11 @@
 	* Makefile, doc/Getting_Started_Writing_Clients.adoc,
 	ykval-nagios-queuelength.1, ykval-nagios-queuelength.php: Added link
 	to upgrade.yubico.com
+
+2015-01-09  Dain Nilsson <dain@yubico.com>
+
+	* doc/Getting_Started_Writing_Clients.adoc: Added link to
+	upgrade.yubico.com
 
 2014-11-26  Henrik Stråth <minisu@users.noreply.github.com>
 

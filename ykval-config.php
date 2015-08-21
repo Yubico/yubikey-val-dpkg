@@ -79,6 +79,18 @@ $baseParams['__YKVAL_SYNC_SECURE_LEVEL__'] = 40;
 $baseParams['__YKVAL_SYNC_DEFAULT_LEVEL__'] = 60;
 $baseParams['__YKVAL_SYNC_DEFAULT_TIMEOUT__'] = 1;
 
+# A key -> value array with curl options to set
+#  when calling URLs defined in __YKVAL_SYNC_POOL__
+$baseParams['__YKVAL_SYNC_CURL_OPTS__'] = array(
+  //CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
+);
+
+# A key -> value array with curl options to set
+#  when calling URLs returned by otp2ksmurls()
+$baseParams['__YKVAL_KSM_CURL_OPTS__'] = array(
+  //CURLOPT_PROTOCOLS => CURLPROTO_HTTP,
+);
+
 // otp2ksmurls: Return array of YK-KSM URLs for decrypting OTP for
 // CLIENT.  The URLs must be fully qualified, i.e., contain the OTP
 // itself.
@@ -97,5 +109,3 @@ function otp2ksmurls ($otp, $client) {
 		"http://127.0.0.1/wsapi/decrypt?otp=$otp"
 	       );
 }
-
-?>
