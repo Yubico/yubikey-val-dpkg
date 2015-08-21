@@ -36,6 +36,7 @@ class SyncLib
 {
   public $syncServers = null;
   public $dbConn = null;
+  public $curlopts = array();
 
   function __construct($logname='ykval-synclib')
   {
@@ -46,6 +47,9 @@ class SyncLib
     $this->isConnected=$this->db->connect();
     $this->server_nonce=md5(uniqid(rand()));
 
+    if (array_key_exists('__YKVAL_SYNC_CURL_OPTS__', $baseParams)) {
+      $this->curlopts = $baseParams['__YKVAL_SYNC_CURL_OPTS__'];
+    }
   }
 
   function addField($name, $value)
@@ -326,12 +330,9 @@ class SyncLib
 	  "&" . $this->otpPartFromInfoString($entry['info']);
 
 	/* Send out sync request */
-	$this->log(LOG_DEBUG, 'url is ' . $url);
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_USERAGENT, "YK-VAL");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_FAILONERROR, true);
-	curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+
+	curl_settings($this, "YK-VAL resync", $ch, $url, $timeout, $this->curlopts);
+
 	$response = curl_exec($ch);
 
 	if ($response==False) {
@@ -539,7 +540,7 @@ class SyncLib
 
   function retrieveURLasync_wrap ($urls, $ans_req=1, $timeout=1.0)
   {
-    return retrieveURLasync("YK-VAL sync", $urls, $this->myLog, $ans_req, $match="status=OK", $returl=True, $timeout);
+    return retrieveURLasync("YK-VAL sync", $urls, $this->myLog, $ans_req, $match="status=OK", $returl=True, $timeout, $this->curlopts);
   }
 
 }
