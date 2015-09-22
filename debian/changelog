@@ -4,6 +4,7 @@ yubikey-val (2.32-1) unstable; urgency=low
   * Update upstream-signing-key.pgp.
   * Tweak watch file.
   * Tweak Upstream-Name in copyright file.
+  * Add gbp.conf.
 
  -- Simon Josefsson <simon@josefsson.org>  Tue, 22 Sep 2015 09:04:17 +0200
 
