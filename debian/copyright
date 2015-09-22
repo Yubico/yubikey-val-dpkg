@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: YubiKey VAL
+Upstream-Name: YubiKey Validation Server
 Source: https://developers.yubico.com/yubikey-val/
 
 Files: *
