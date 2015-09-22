@@ -1,3 +1,80 @@
+2015-09-14  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.32
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php, ykval-verify.php: Modified log messages.  - avoid doing what is already handled by the Log class.  - the log name is appended automatically, 	so don't append it again in the invocation.  	i.e. "ykval-verify" - the log level name is also appended automatically, 	so don't append it manually, especially when it doesn't match the
+		log priority! 	i.e. LOG_WARNING -> ":notice:" - fix whitespace in some messages.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Cosmetic.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Rename variable.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Rename variable.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.  - make it easier to follow, 	create prefix first, then suffix.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.  - build separate string from $extra array, 	and append it in syslog call.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Rename variable.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Refactor.  - init variables as class property, 	no need to init in construct.  - set scopes on private properties, 	and public methods.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - get rid of log_format() function.  - was only used in one place and it just complicates things.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Documentation.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - $urls is already checked prior to invoking function.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: Cosmetic fix.
+
 2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.31
