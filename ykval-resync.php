@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2012-2013 Yubico AB
+# Copyright (c) 2012-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -84,8 +84,7 @@ if (! $sync->isConnected()) {
 }
 
 foreach($yubikeys as $key) {
-  $localParams = $sync->getLocalParams($key);
-  if (!$localParams) {
+  if (($localParams = $sync->getLocalParams($key)) === FALSE) {
     logdie($myLog, 'ERROR Invalid Yubikey ' . $key);
   }
 
@@ -100,4 +99,3 @@ foreach($yubikeys as $key) {
 
 # We are done
 logdie($myLog, "OK Initiated resync of $yk");
-?>

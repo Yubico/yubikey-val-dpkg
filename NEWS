@@ -1,3 +1,19 @@
+* Version 2.30 (released 2015-09-09)
+
+  * Refactoring and internal improvements.
+
+  * Better robustness and minor performance improvements.
+
+  * Bug fixes in logging framework and message output.
+
+  * Preference towards TLS by default.
+
+  * ykval-queue exits automatically on single node configurations.
+
+  * Rewrote ksmlatency, vallatency & queuelength munin plugins.
+
+  * Munin plugins use libcurl rather than curl system binaries.
+
 * Version 2.29 (released 2015-05-27)
 
   * Allow curl options to be set from config file.

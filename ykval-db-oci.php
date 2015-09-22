@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2012-2013 Yubico AB
+# Copyright (c) 2012-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -118,7 +118,7 @@ class DbImpl extends Db
 
   /**
    * function to close the cursor after having fetched rows
-   * 
+   *
    * @param object $result Query result object or null to use the current one
    *
    */
@@ -237,6 +237,3 @@ class DbImpl extends Db
     }
   }
 }
-
-
-?>

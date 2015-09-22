@@ -1,3 +1,837 @@
+2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.30
+
+2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-vallatency.php: Fix.  - add newline for munin error message.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php, ykval-synclib.php: Refactor out
+	function into library.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Rewrote ykval-munin-queuelength
+	plugin.  - bring in line with ksm and val latency plugin.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Rewrite ykval-munin-ksmlatency plugin.  - same as 1e4da5dac66210a85cf0e3bee739a6839edeeb46, 	but for ksm latency plugin.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-munin-vallatency.php: Rewrite
+	ykval-munin-vallatency plugin.  - avoid having to use the same internal and label name, 	as it's problematic.  - internal name has a lot of restrictions: 	s/^[^A-Za-z_]/_/ 	s/[^A-Za-z0-9_]/_/g - which doesn't allow us to show proper label names, 	the names that users will see.  - label displays :80 or :443 depending on scheme.  - avoid ugliness with shortname() and instead use endpoints().
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Cosmetic.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Use underscore instead of colon for host/port.  - munin plugin only supports a-zA-Z0-9_ so colon will probably give
+	us problems.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Fix.  - import common, required for shortname function.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php, ykval-munin-queuelength.php,
+	ykval-munin-vallatency.php: Add shortname failure checks for munin
+	plugins.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-munin-ksmlatency.php,
+	ykval-munin-queuelength.php, ykval-munin-vallatency.php: Rename
+	function
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Modify ykval-munin-queuelength
+	plugin.  - use host (and port if any) for graph title.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php, ykval-munin-vallatency.php: Use single
+	quotes where possible.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php, ykval-munin-vallatency.php: Use echo
+	in all munin php plugins.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Modify ykval-munin-queuelength
+	plugin.  - don't auto configure if running a single node cluster.  	(i.e. no queues for sync requests to other servers).
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-queuelength.php: Refactor.  - move autoconf block lower down.  - will be taken advantage of in a newer commit.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Modify ykval-munin-ksmlatency.  - same as f2604e751abe43c2cec773194172ac90b9f89a98, 	except this is for KSM URLs.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Add FIXME marker.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-vallatency.php: Modify ykval-munin-vallatency plugin.  - don't auto configure if running a single node cluster.  	(i.e. no other servers to sync to).
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-munin-vallatency.php: Modify
+	ykval-munin-vallatency plugin.  - use hostname (+ port if any) for graph name.  	i.e. if we have a sync URL: 		https://api.yubico.com:8080/wsapi/2.0/sync 	instead of having "api" as name, 		we have "api.yubico.com:8080".  - also avoid using regex and use parse_url() from php core instead.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Rename variable.  - $ksms => $urls - $ksm => $url - mainly to be closer to vallatency plugin.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-vallatency.php: Cosmetic.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Rename variable.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php, ykval-munin-vallatency.php: Use
+	bracket guards for substitution.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-munin-vallatency.php: Drop half baked
+	functionality in ykval-munin-vallatency.  - plugin assumed URL uses a hostname (no static ips) 	and that hostname resolves to both ipv4 and ipv6.  - if we want to differentiate stats between ipv4 and ipv6, 	we need to re-think this and do it in a smart way.  - for now we prefer to allow cURL to pick whatever IP it resolves, 	and run the latency test on that.  - signed off by Klas Lindfors.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-checksum-clients, ykval-checksum-deactivated, ykval-export,
+	ykval-export-clients, ykval-gen-clients, ykval-import,
+	ykval-import-clients, ykval-munin-ksmlatency.php,
+	ykval-munin-queuelength.php, ykval-munin-vallatency.php,
+	ykval-munin-yubikeystats.php, ykval-nagios-queuelength.php,
+	ykval-queue: Refactor include paths.  - use PATH_SEPARATOR everywhere, 	instead of a mix of PATH_SEPARATOR and hard coded colons.  - always include /usr/share/yubikey-val first, 	then /etc/yubico/val.  - should not have any visible affects, 	since no file names are common between the two directories.  - use array+implode to make it easier to add/remove paths, 	and to avoid hardcoded the path separator.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-yubikeystats.php: Refactor.  - string substitution rather than concatenation.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php: Refactor ykval-munin-ksmlatency
+	plugin.  - depend on libcurl instead of curl binary.  - due to this commit, 	requests sent to KSM URLs will contain a User-Agent header.
+
+2015-09-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-munin-vallatency.php: Move function into
+	ykval-common.php
+
+2015-09-07  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-vallatency.php: Refactor.  - don't depend on external binaries, 	it assumes too much and is dangerous.  - we can depend on libcurl instead, 	since it's already a dependency in core.  - we should do this for other plugins too, 	and move the new function into ykval-common.php - plugin reports same exact values as before.
+
+2015-09-07  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-munin-ksmlatency.php, ykval-munin-queuelength.php,
+	ykval-munin-vallatency.php, ykval-munin-yubikeystats.php: Cosmetic
+	changes.  - refactor whitespace for munin plugins written in php.  - change spaces into tabs and fix brackets mostly.
+
+2015-08-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-queue: Modify ykval-queue daemon.  - don't run ykval-queue for single node configurations.
+
+2015-08-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-db-pdo.php: Refactor.  - remove unnecessary else {} wrapper.
+
+2015-08-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-db-pdo.php: Cosmetic changes.  - make it easier to understand query construction.
+
+2015-08-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Don't set a default value for reSync argument.  - reSync() is only called in ykval-queue, 	and that sets an $older_than argument.  - additionally, the defaults did not match.  - the value in ykval-queue (via ykval-config) is 10 seconds, 	and the value in reSync($older_than=) was 60 seconds.  - no functional change, just makes things less confusing.
+
+2015-08-12  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: FIXME marker.
+
+2015-08-12  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* travis/server.pl: Fix failing tests.  - bug introduced in 382cfc2ab506a4c0f6ba0222d473ff3df77dd6f5.  - travis perl server test should use port 8002 to simulate ksm
+	server.
+
+2015-07-28  Jean Paul Galea <jp@galea.se>
+
+	* ykval-queue: FIXME markers.
+
+2015-07-28  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Modify default KSM URL.  - our ksm daemon listens on port 8002 by default, 	so ykval should also have the same default.
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Fix.  - fix bug introduced in 6181abee14aacca55e81f8d051b2ed0d2002eefa.  - essentially, strftime() uses different format than date()
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - avoid unnecessary strtotime() call.  - instead of: 		strtotime(date('Y-m-d H:i:s', $timestamp)) 	use: 		$timestamp 	since: 		$timestamp === strtotime(date('Y-m-d H:i:s', $timestamp))
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - strftime -> date.  - strftime is same as date, but with locales.  - date format doesn't output names (January, March, etc.), 	so locale doesn't matter.  - also, would we really want locale in logs?
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Modify log write.  - Log::log() internally support array implode, 	so no need to duplicate functionality.  - however, the internal implode uses two consecutive spaces as
+		separator, so this will change the log format slightly.  	e.g. "delta=x now=y" becomes "delta=x  now=y"
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor.  - rename $curlopts -> $opts.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor.  - rename $handle -> $ch.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-22  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: FIXME markers.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Better grouping.  - same as 1e799aa6e57dffcb7baeb130919180bef22ea085.  - group $timeout filtering and validation.  - this commit might change replies sent to clients, 	since the validation check is done eaerlier now, 	and we might return S_MISSING_PARAM before S_BAD_OTP for example.  - this should really not cause any issues though, 	the order of which error is raised first should not matter to
+		clients.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Better grouping.  - group $sl filtering and validation.  - this commit might change replies sent to clients, 	since the validation check is done eaerlier now, 	and we might return S_MISSING_PARAM before S_BAD_OTP for example.  - this should really not cause any issues though, 	the order of which error is raised first should not matter to
+		clients.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor and unset after use.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - single quotes.  - unset after use.  - don't wrap.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - only add nonce to $extra array after check.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - $new_otp not used afterwards, 	clean up to avoid reuse by mistake.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Better grouping.  - no functional affect whatsoever.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: More robust https check.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - avoid using $_SERVER vars in "core", 	helps when debugging or running via cli.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-common.php: Refactor sign function.  - this commit might affect LOG_DEBUG message,     since now we log utf8_encode($qs) not $qs.  - this is probably what we want though,     since we run hash_hmac on the latter.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Unwrap else block.  - sendResp calls exit()
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: More minor fixes.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - $apiKey is initiliased further down.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: Refactor.  - str substitution rather than concat.  - cosmetic changes.
+
+2015-07-21  Jean Paul Galea <jp@galea.se>
+
+	* ykval-verify.php: double -> single quotes.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* COPYING, Makefile, ykval-checksum-clients,
+	ykval-checksum-clients.1, ykval-checksum-deactivated,
+	ykval-checksum-deactivated.1, ykval-common.php, ykval-config.php,
+	ykval-db-oci.php, ykval-db-pdo.php, ykval-db.php, ykval-export,
+	ykval-export-clients, ykval-export-clients.1, ykval-export.1,
+	ykval-gen-clients.1, ykval-import, ykval-import-clients,
+	ykval-import-clients.1, ykval-import.1, ykval-log.php,
+	ykval-munin-ksmlatency.php, ykval-munin-ksmresponses.pl,
+	ykval-munin-queuelength.php, ykval-munin-responses.pl,
+	ykval-munin-vallatency.php, ykval-munin-yubikeystats.php,
+	ykval-nagios-queuelength.php, ykval-ping.php, ykval-queue,
+	ykval-queue.1, ykval-resync.php, ykval-revoke.php, ykval-sync.php,
+	ykval-synchronize, ykval-synchronize.1, ykval-synclib.php,
+	ykval-verify.php: Update copyright year.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Add FIXME markers.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-synclib.php: Refactor.  - negate test and return early.  - avoid wrapping whole function in `if () { }`.  - move $condition below $arr, 	since $arr is passwed first, then $condition, to
+		conditionalUpdateBy().
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-synclib.php: Refactor.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Improve documentation.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Refactor database configuration.  - don't repeat config-db.php file path - add @is_readable, 	we might not have the proper permissions.  - use 'require_once' instead of 'include', 	this file should only be included once and we 	should fail dramatically if we can't load it.  - better documentation.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Cosmetic changes.  \# -> //
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Cosmetic changes.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Move comment where applicable.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Cosmetic changes.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Remove unused variables.  - will add db host/port later, currently they are ignored even if
+	configured.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-checksum-clients.1, ykval-checksum-deactivated.1,
+	ykval-export-clients.1, ykval-export.1, ykval-gen-clients.1,
+	ykval-import-clients.1, ykval-import.1, ykval-nagios-queuelength.1,
+	ykval-queue.1, ykval-synchronize.1: Use TLS for man page
+	www.yubico.com links.
+
+2015-07-20  Jean Paul Galea <jp@galea.se>
+
+	* ykval-config.php: Use TLS in ykval-config.php examples
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor counter logic.  - break up into multiple if comparisons.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-ping.php: Single quotes.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Added helper comments.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.  - method grouping.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Change scope on private methods.  - mainly to help refactor, 	and avoid grep'ing globally.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - getClientData() returns array or bool false on failure.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Set scopes on methods.  - confirmed to be used publically.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: FIXME markers.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Fix.  - fix bug introduced in a28ad6df698b4ef20b6698a1f993019ad25bef25.
+
+2015-07-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - use single quotes where possible.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: FIXME marker.  - probably should be '&local_counter' not ',local_counter'.  - check later as this is written to db and if we fix here, 	we might break other stuff.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Fix bug.  - this was not introduced by my refactoring.  - LOG_ALERT message was incorrect, 	probably yy,p from counter block.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Fix bug.  - this was not introduced by my refactoring.  - LOG_ALERT for; yk_low, yk_high, nonce was written only 	if yk_use failed to be parsed.  - as a result, this commit might change LOG_ALERT output.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor away useless else { } wrap.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor away useless variable.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - be explicit and declare as public, 	since we're clearly using it.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-resync.php, ykval-sync.php, ykval-verify.php: Refactor.  - getLocalParams() returns array or bool false on failure.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - str sub instead of concat.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - removed duplicate variable.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - remove unnecessary else { } wrap.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - str sub instead of concat
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - KSMDecryptOTP returns array or bool false on failure.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - minor improvements.  - move $ret init right before it's used.  - use string substitution rather than concatenation.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.  - adhere with some form of convetion for comments.  - use single quotes where possible.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-synclib.php: Refactor.  - retrieveURLasync() always returns FALSE on failure now, 	before it might have returned a string.  - use array_shift($a) to pop first element, 	safer than $a[0]; - this commit might affect what is written to LOG_DEBUG, 	since now we only write the YK-KSM message when we 	are certain to have a valid response.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - remove counter and use count($array) instead.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - $id never used.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - use string substitution rather than concatenation.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - $mrc never used.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - enable strict comparison for sscanf result.  - use single quotes where possible.  - styling.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Fix.  - introduced bug in 0d03c2be29d394a7a8a9c9617481f4b6a5ff0556.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - gmdate(, $x) already defaults to time()
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - unwrap getUTCTimeStamp() - use gmdate() instead of 	date_default_timezone_set('UTC') + date()
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - $status is always set in invocation, and never to null.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Cosmetic changes.  - readability.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Refactor.  - improve readability.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Remove broken link.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.  - brackets, comment blocks.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - use variable substitution rather than concatenation.  - use single quotes where possible.
+
+2015-07-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - parse request before opening up a database connection 	and init'ing synclib.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.  - more consistency with comment style.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.  - spaces -> tabs
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - move further down, easier to read, but no real benefit resource
+	wise.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - check for empty request first, 	before opening up syslog.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - before opening up a database connection (and init synclib), 	verify request comes from whitelisted address first.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - $apiKey is always '' and sendResp() $apiKey argument defaults to
+	''
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - $allowed is easier on the eyes.  - enabled in_array(, , TRUE) for strict comparision.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.  - readability at the expense of long lines.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - merge validation into one block.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - use simple comparisons and ctype for validation, 	less resource intensive than regex.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Refactor.  - $ipaddr is easier on the eyes.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-sync.php, ykval-verify.php: Refactor.  - after each sendResp() we had an exit; - move exit; inside sendResp() function instead.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php, ykval-verify.php: Unwrap function.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - syncServers was mostly always an array.  - change init value from NULL to array().  - simplify getNumberOfServers.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Prettify.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Prettify hash_equals.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Unwrap, only used here.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-db-pdo.php, ykval-db.php,
+	ykval-synclib.php: Removed dead code, second try.  - grep with -i switch.  - left UnixToDbTime...  	will refactor later and unwrap to plain date() - left timestamp* methods in ykval-db, 	not used but might be useful while refactoring other code.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-db-pdo.php, ykval-db.php,
+	ykval-synclib.php: Revert "Removed dead code." This reverts commit 29deb6007dd66a47ab9275687fcac140a228e404.  PHP functions are __not__ case-sensitive!
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - better grouping for validation.
+
+2015-07-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-db-pdo.php, ykval-db.php,
+	ykval-synclib.php: Removed dead code.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-import: Cosmetic changes.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.  - remove last remaining tabs, 	so now the whole file is using the same indentation convention.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.  - make it easier to read, 	even though we have a couple of long lines now...
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - make it easier to follow what is happenining in queue().
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-db-oci.php, ykval-db-pdo.php, ykval-db.oracle.sql: Remove
+	trailing whitespace.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor updateDbCounters.  - make it easier to follow what is happening.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - removed unnecessary else, 	always return at end of function.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Cosmetic changes.  - use spaces where possible.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-synclib.php: Refactor.  - remove wrapper which provides no help, 	just makes it harder to follow the code.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Cosmetic changes.  - remove tabs/space mix.  - use single quotes where possible.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log.php: Cosmetic changes.  - remove mix of tabs/spaces, 	use tabs everywhere.  - remove mix of double/single quotes, 	use single quotes everywhere unless $var substitution.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-checksum-clients, ykval-checksum-deactivated,
+	ykval-common.php, ykval-db-oci.php, ykval-db-pdo.php, ykval-db.php,
+	ykval-export, ykval-export-clients, ykval-log.php,
+	ykval-munin-ksmlatency.php, ykval-munin-queuelength.php,
+	ykval-munin-vallatency.php, ykval-munin-yubikeystats.php,
+	ykval-nagios-queuelength.php, ykval-ping.php, ykval-queue,
+	ykval-resync.php, ykval-revoke.php, ykval-sync.php,
+	ykval-synchronize, ykval-synclib.php, ykval-verify.php: Drop php
+	closing tags.
+
+2015-07-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-config.php: Cosmetic changes.
+
+2015-07-02  Klas Lindfors <klas@yubico.com>
+
+	* ykval-gen-clients: add newline in help text
+
+2015-05-28  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #30 from cam34/master Modify config-db.php include to check for file instead of doing a
+	(fa…
+
+2015-05-27  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump versions
+
 2015-05-27  Klas Lindfors <klas@yubico.com>
 
 	* NEWS: NEWS for 2.29
@@ -73,24 +907,26 @@
 
 2014-10-29  Dain Nilsson <dain@yubico.com>
 
-	* doc/{ClientInfoFormat.adoc => Client_Info_Format.adoc},
-	doc/{GeneratingClients.adoc => Generating_Clients.adoc},
-	doc/{GettingStartedWritingClients.adoc =>
-	Getting_Started_Writing_Clients.adoc}, doc/ImportExportData.adoc,
-	doc/Import_Export_Data.adoc, doc/Installation.adoc,
-	doc/{MakeRelease.adoc => Make_Release.adoc}, doc/MuninProbes.adoc,
-	doc/Munin_Probes.adoc, doc/{RevocationService.adoc =>
-	Revocation_Service.adoc}, doc/{ServerReplicationProtocol.adoc =>
-	Server_Replication_Protocol.adoc}, doc/{SyncMonitor.adoc =>
-	Sync_Monitor.adoc}, doc/Troubleshooting.adoc,
-	doc/{ValidationProtocolV20.adoc => Validation_Protocol_V2.0.adoc},
-	doc/{ValidationServerAlgorithm.adoc =>
-	Validation_Server_Algorithm.adoc}, doc/YubiKeyInfoFormat.adoc,
+	* doc/ClientInfoFormat.adoc, doc/Client_Info_Format.adoc,
+	doc/GeneratingClients.adoc, doc/Generating_Clients.adoc,
+	doc/GettingStartedWritingClients.adoc,
+	doc/Getting_Started_Writing_Clients.adoc,
+	doc/ImportExportData.adoc, doc/Import_Export_Data.adoc,
+	doc/Installation.adoc, doc/MakeRelease.adoc, doc/Make_Release.adoc,
+	doc/MuninProbes.adoc, doc/Munin_Probes.adoc,
+	doc/RevocationService.adoc, doc/Revocation_Service.adoc,
+	doc/ServerReplicationProtocol.adoc,
+	doc/Server_Replication_Protocol.adoc, doc/SyncMonitor.adoc,
+	doc/Sync_Monitor.adoc, doc/Troubleshooting.adoc,
+	doc/ValidationProtocolV20.adoc, doc/ValidationServerAlgorithm.adoc,
+	doc/Validation_Protocol_V2.0.adoc,
+	doc/Validation_Server_Algorithm.adoc, doc/YubiKeyInfoFormat.adoc,
 	doc/YubiKey_Info_Format.adoc,
-	doc/legacy/{ValidationProtocolV10.adoc =>
-	Validation_Protocol_V1.0.adoc},
-	doc/legacy/{ValidationProtocolV11.adoc =>
-	Validation_Protocol_V1.1.adoc}: Improved asciidoc formatting
+	doc/legacy/ValidationProtocolV10.adoc,
+	doc/legacy/ValidationProtocolV11.adoc,
+	doc/legacy/Validation_Protocol_V1.0.adoc,
+	doc/legacy/Validation_Protocol_V1.1.adoc: Improved asciidoc
+	formatting
 
 2014-10-29  Henrik Stråth <henrik@yubico.com>
 
@@ -261,8 +1097,9 @@
 
 2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
 
-	* doc/{ => legacy}/ValidationProtocolV10.adoc, doc/{ =>
-	legacy}/ValidationProtocolV11.adoc: Restructured legacy docs
+	* doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
+	doc/legacy/ValidationProtocolV10.adoc,
+	doc/legacy/ValidationProtocolV11.adoc: Restructured legacy docs
 
 2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
 
@@ -597,12 +1434,12 @@
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
-	* Makefile, ykval-checksum-clients.php => ykval-checksum-clients,
-	ykval-checksum-deactivated.php => ykval-checksum-deactivated,
-	ykval-export.php => ykval-export, ykval-export-clients.php =>
-	ykval-export-clients, ykval-import.php => ykval-import,
-	ykval-import-clients.php => ykval-import-clients, ykval-queue.php
-	=> ykval-queue: Removed file extensions of executables.
+	* Makefile, ykval-checksum-clients, ykval-checksum-clients.php,
+	ykval-checksum-deactivated, ykval-checksum-deactivated.php,
+	ykval-export, ykval-export-clients, ykval-export-clients.php,
+	ykval-export.php, ykval-import, ykval-import-clients,
+	ykval-import-clients.php, ykval-import.php, ykval-queue,
+	ykval-queue.php: Removed file extensions of executables.
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
@@ -1847,7 +2684,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* test-multi.php => tests/test-multi.php: Move.
+	* test-multi.php, tests/test-multi.php: Move.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -1880,7 +2717,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile, lib/Db.php => ykval-db.php: Add install target.
+	* Makefile, lib/Db.php, ykval-db.php: Add install target.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -2133,8 +2970,8 @@
 
 2009-05-04  Simon Josefsson <simon@josefsson.org>
 
-	* ping.php, common.php => ykval-common.php, config.php.sample =>
-	ykval-config.php, verify.php => ykval-verify.php: Rename and
+	* common.php, config.php.sample, ping.php, verify.php,
+	ykval-common.php, ykval-config.php, ykval-verify.php: Rename and
 	cleanup.
 
 2009-04-27  Simon Josefsson <simon@josefsson.org>

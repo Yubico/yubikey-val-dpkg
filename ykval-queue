@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-# Copyright (c) 2010-2013 Yubico AB
+# Copyright (c) 2010-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,18 +28,32 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set_include_path(get_include_path() . PATH_SEPARATOR . "/usr/share/yubikey-val:/etc/yubico/val");
+set_include_path(implode(PATH_SEPARATOR, array(
+	get_include_path(),
+	'/usr/share/yubikey-val',
+	'/etc/yubico/val',
+)));
 
 require_once 'ykval-synclib.php';
 require_once 'ykval-config.php';
 require_once 'ykval-log.php';
 
+// FIXME
+// don't die if db connection goes away
+//	(e.g. during mysql restart or upgrade).
+
 $sl = new SyncLib('ykval-queue:synclib');
+
+if ($sl->getNumberOfServers() === 0 && $sl->getQueueLength() === 0)
+{
+	$sl->log(LOG_NOTICE, 'server sync pool is empty and sync queue is also empty.');
+	$sl->log(LOG_NOTICE, 'configuration looks like a single node setup.');
+	$sl->log(LOG_NOTICE, 'ykval-queue daemon terminating.');
+	exit(0);
+}
 
 # Loop forever and resync
 do {
   $sl->reSync($baseParams['__YKVAL_SYNC_OLD_LIMIT__'],
 	      $baseParams['__YKVAL_SYNC_RESYNC_TIMEOUT__']);
 } while(sleep($baseParams['__YKVAL_SYNC_INTERVAL__'])==0);
-
-?>
