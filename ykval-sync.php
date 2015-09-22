@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2009-2014 Yubico AB
+# Copyright (c) 2009-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -31,180 +31,159 @@ require_once 'ykval-common.php';
 require_once 'ykval-config.php';
 require_once 'ykval-synclib.php';
 
-$apiKey = '';
+header('content-type: text/plain');
 
-header("content-type: text/plain");
+if (empty($_SERVER['QUERY_STRING']))
+{
+	sendResp(S_MISSING_PARAMETER, $myLog);
+}
 
+$ipaddr = $_SERVER['REMOTE_ADDR'];
+$allowed = $baseParams['__YKVAL_ALLOWED_SYNC_POOL__'];
 
 $myLog = new Log('ykval-sync');
-$myLog->addField('ip', $_SERVER['REMOTE_ADDR']);
+$myLog->addField('ip', $ipaddr);
+$myLog->log(LOG_INFO, 'Request: ' . $_SERVER['QUERY_STRING']);
+$myLog->log(LOG_DEBUG, "Received request from $ipaddr");
 
-if(empty($_SERVER['QUERY_STRING'])) {
-  sendResp(S_MISSING_PARAMETER, $myLog, $apiKey);
-  exit;
+
+// verify request sent by whitelisted address
+if (in_array($ipaddr, $allowed, TRUE) === FALSE)
+{
+	$myLog->log(LOG_NOTICE, "Operation not allowed from IP $ipaddr");
+	$myLog->log(LOG_DEBUG, "Remote IP $ipaddr not listed in allowed sync pool : " . implode(', ', $allowed));
+	sendResp(S_OPERATION_NOT_ALLOWED, $myLog);
 }
 
-$myLog->log(LOG_INFO, "Request: " . $_SERVER['QUERY_STRING']);
 
-$sync = new SyncLib('ykval-sync:synclib');
-$sync->addField('ip', $_SERVER['REMOTE_ADDR']);
+// define requirements on protocol
+$syncParams = array(
+	'modified' => NULL,
+	'otp' => NULL,
+	'nonce' => NULL,
+	'yk_publicname' => NULL,
+	'yk_counter' => NULL,
+	'yk_use' => NULL,
+	'yk_high' => NULL,
+	'yk_low' => NULL
+);
 
-if (! $sync->isConnected()) {
-  sendResp(S_BACKEND_ERROR, $myLog, $apiKey);
-  exit;
-}
+// extract values from HTTP request
+$tmp_log = 'Received ';
+foreach ($syncParams as $param => $value)
+{
+	$value = getHttpVal($param, NULL);
 
-#
-# Verify that request comes from valid server
-#
+	if ($value == NULL)
+	{
+		$myLog->log(LOG_NOTICE, "Received request with parameter[s] ($param) missing value");
+		sendResp(S_MISSING_PARAMETER, $myLog);
+	}
 
-$myLog->log(LOG_DEBUG, 'Received request from ' . $_SERVER['REMOTE_ADDR']);
-
-$allowed = in_array($_SERVER['REMOTE_ADDR'], $baseParams['__YKVAL_ALLOWED_SYNC_POOL__']);
-
-if (!$allowed) {
-  $myLog->log(LOG_NOTICE, 'Operation not allowed from IP ' . $_SERVER['REMOTE_ADDR']);
-  $myLog->log(LOG_DEBUG, 'Remote IP ' . $_SERVER['REMOTE_ADDR'] . ' not listed in allowed sync pool : ' .
-	      implode(', ', $baseParams['__YKVAL_ALLOWED_SYNC_POOL__']));
-  sendResp(S_OPERATION_NOT_ALLOWED, $myLog, $apiKey);
-  exit;
-}
-
-#
-# Define requirements on protocol
-#
-
-$syncParams=array('modified'=>Null,
-		  'otp'=>Null,
-		  'nonce'=>Null,
-		  'yk_publicname'=>Null,
-		  'yk_counter'=>Null,
-		  'yk_use'=>Null,
-		  'yk_high'=>Null,
-		  'yk_low'=>Null);
-
-#
-# Extract values from HTTP request
-#
-
-$tmp_log = "Received ";
-foreach ($syncParams as $param=>$value) {
-  $value = getHttpVal($param, Null);
-  if ($value==Null) {
-    $myLog->log(LOG_NOTICE, "Received request with parameter[s] (" . $param . ") missing value");
-    sendResp(S_MISSING_PARAMETER, $myLog, $apiKey);
-    exit;
-  }
-  $syncParams[$param]=$value;
-  $tmp_log .= "$param=$value ";
+	$syncParams[$param] = $value;
+	$tmp_log .= "$param=$value ";
 }
 $myLog->log(LOG_INFO, $tmp_log);
 
-#
-# At this point we should have the otp so let's add it to the logging module
-#
+
+$sync = new SyncLib('ykval-sync:synclib');
+$sync->addField('ip', $ipaddr);
+
+if (! $sync->isConnected())
+{
+	sendResp(S_BACKEND_ERROR, $myLog);
+}
+
+// at this point we should have the otp so let's add it to the logging module
 $myLog->addField('otp', $syncParams['otp']);
 $sync->addField('otp', $syncParams['otp']);
 
-#
-# Verify correctness of input parameters
-#
 
-foreach (array('modified') as $param) {
-  if (preg_match("/^[0-9]+$/", $syncParams[$param])==0) {
-    $myLog->log(LOG_NOTICE, 'Input parameters ' . $param . ' not correct');
-    sendResp(S_MISSING_PARAMETER, $myLog, $apiKey);
-    exit;
-  }
+// verify correctness of input parameters
+foreach (array('modified','yk_counter', 'yk_use', 'yk_high', 'yk_low') as $param)
+{
+	// -1 is valid except for modified
+	if ($param !== 'modified' && $syncParams[$param] === '-1')
+		continue;
+
+	// [0-9]+
+	if ($syncParams[$param] !== '' && ctype_digit($syncParams[$param]))
+		continue;
+
+	$myLog->log(LOG_NOTICE, "Input parameters $param  not correct");
+	sendResp(S_MISSING_PARAMETER, $myLog);
 }
 
-foreach (array('yk_counter', 'yk_use', 'yk_high', 'yk_low') as $param) {
-  if (preg_match("/^(-1|[0-9]+)$/", $syncParams[$param])==0) {
-    $myLog->log(LOG_NOTICE, 'Input parameters ' . $param . ' not correct');
-    sendResp(S_MISSING_PARAMETER, $myLog, $apiKey);
-    exit;
-  }
-}
-
-
-
-
-#
-# Get local counter data
-#
-
+// get local counter data
 $yk_publicname = $syncParams['yk_publicname'];
-$localParams = $sync->getLocalParams($yk_publicname);
-if (!$localParams) {
-  $myLog->log(LOG_NOTICE, 'Invalid Yubikey ' . $yk_publicname);
-  sendResp(S_BACKEND_ERROR, $myLog, $apiKey);
-  exit;
+if (($localParams = $sync->getLocalParams($yk_publicname)) === FALSE)
+{
+	$myLog->log(LOG_NOTICE, 'Invalid Yubikey ' . $yk_publicname);
+	sendResp(S_BACKEND_ERROR, $myLog);
 }
 
-/* Conditional update local database */
+// conditional update local database
 $sync->updateDbCounters($syncParams);
 
-$myLog->log(LOG_DEBUG, 'Local params ' , $localParams);
-$myLog->log(LOG_DEBUG, 'Sync request params ' , $syncParams);
+$myLog->log(LOG_DEBUG, 'Local params ', $localParams);
+$myLog->log(LOG_DEBUG, 'Sync request params ', $syncParams);
 
-#
-# Compare sync and local counters and generate warnings according to
-#
-# https://developers.yubico.com/yubikey-val/doc/ServerReplicationProtocol.html
-#
-
-
-
-if ($sync->countersHigherThan($localParams, $syncParams)) {
-  $myLog->log(LOG_WARNING, 'Remote server out of sync.');
+if ($sync->countersHigherThan($localParams, $syncParams))
+{
+	$myLog->log(LOG_WARNING, 'Remote server out of sync.');
 }
 
+if ($sync->countersEqual($localParams, $syncParams))
+{
+	if ($syncParams['modified'] == $localParams['modified']
+		&& $syncParams['nonce'] == $localParams['nonce'])
+	{
+		/**
+		 * This is not an error. When the remote server received an OTP to verify, it would
+		 * have sent out sync requests immediately. When the required number of responses had
+		 * been received, the current implementation discards all additional responses (to
+		 * return the result to the client as soon as possible). If our response sent last
+		 * time was discarded, we will end up here when the background ykval-queue processes
+		 * the sync request again.
+		 */
+		$myLog->log(LOG_INFO, 'Sync request unnecessarily sent');
+	}
 
-if ($sync->countersEqual($localParams, $syncParams)) {
+	if ($syncParams['modified'] != $localParams['modified']
+		&& $syncParams['nonce'] == $localParams['nonce'])
+	{
+		$deltaModified = $syncParams['modified'] - $localParams['modified'];
 
-  if ($syncParams['modified']==$localParams['modified'] &&
-      $syncParams['nonce']==$localParams['nonce']) {
-    /* This is not an error. When the remote server received an OTP to verify, it would
-     * have sent out sync requests immediately. When the required number of responses had
-     * been received, the current implementation discards all additional responses (to
-     * return the result to the client as soon as possible). If our response sent last
-     * time was discarded, we will end up here when the background ykval-queue processes
-     * the sync request again.
-     */
-    $myLog->log(LOG_INFO, 'Sync request unnecessarily sent');
-  }
+		if ($deltaModified < -1 || $deltaModified > 1)
+		{
+			$myLog->log(LOG_WARNING, "We might have a replay. 2 events at different times have generated the same counters. The time difference is $deltaModified seconds");
+		}
+	}
 
-  if ($syncParams['modified']!=$localParams['modified'] &&
-      $syncParams['nonce']==$localParams['nonce']) {
-    $deltaModified = $syncParams['modified'] - $localParams['modified'];
-    if($deltaModified < -1 || $deltaModified > 1) {
-      $myLog->log(LOG_WARNING, 'We might have a replay. 2 events at different times have generated the same counters. The time difference is ' . $deltaModified . ' seconds');
-    }
-  }
-
-  if ($syncParams['nonce']!=$localParams['nonce']) {
-    $myLog->log(LOG_WARNING, 'Remote server has received a request to validate an already validated OTP ');
-  }
+	if ($syncParams['nonce'] != $localParams['nonce'])
+	{
+		$myLog->log(LOG_WARNING, 'Remote server has received a request to validate an already validated OTP ');
+	}
 }
 
-if ($localParams['active'] != 1) {
-  /* The remote server has accepted an OTP from a YubiKey which we would not.
-   * We still needed to update our counters with the counters from the OTP though.
-   */
-  $myLog->log(LOG_WARNING, 'Received sync-request for de-activated Yubikey ' . $yk_publicname .
-	      ' - check database synchronization!!!');
-  sendResp(S_BAD_OTP, $myLog, $apiKey);
-  exit;
+if ($localParams['active'] != 1)
+{
+	/**
+	 * The remote server has accepted an OTP from a YubiKey which we would not.
+	 * We still needed to update our counters with the counters from the OTP though.
+	 */
+	$myLog->log(LOG_WARNING, "Received sync-request for de-activated Yubikey $yk_publicname - check database synchronization!!!");
+	sendResp(S_BAD_OTP, $myLog);
 }
 
-$extra=array('modified'=>$localParams['modified'],
-	     'nonce'=>$localParams['nonce'],
-	     'yk_publicname'=>$yk_publicname,
-	     'yk_counter'=>$localParams['yk_counter'],
-	     'yk_use'=>$localParams['yk_use'],
-	     'yk_high'=>$localParams['yk_high'],
-	     'yk_low'=>$localParams['yk_low']);
+$extra = array(
+	'modified' => $localParams['modified'],
+	'nonce' => $localParams['nonce'],
+	'yk_publicname' => $yk_publicname,
+	'yk_counter' => $localParams['yk_counter'],
+	'yk_use' => $localParams['yk_use'],
+	'yk_high' => $localParams['yk_high'],
+	'yk_low' => $localParams['yk_low']
+);
 
-sendResp(S_OK, $myLog, $apiKey, $extra);
-
-?>
+sendResp(S_OK, $myLog, '', $extra);

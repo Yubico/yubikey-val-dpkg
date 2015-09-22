@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2009-2013 Yubico AB
+# Copyright (c) 2009-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -74,4 +74,3 @@ if (!$db->updateBy('yubikeys', 'yk_publicname', $yk,
 
 # We are done
 logdie($myLog, "OK Processed $yk with $do");
-?>

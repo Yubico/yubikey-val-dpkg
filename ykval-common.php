@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2009-2013 Yubico AB
+# Copyright (c) 2009-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -49,126 +49,110 @@ define('OTP_MAX_LEN', 48); // TOKEN_LEN plus public identity of 0..16
 
 function logdie ($logger, $str)
 {
-  $logger->log(LOG_INFO, $str);
-  die($str . "\n");
+	$logger->log(LOG_INFO, $str);
+	die($str . "\n");
 }
 
-function unescape($s) {
-	return str_replace('\\', "", $s);
-}
-
-function getHttpVal($key, $defaultVal) {
-	$val = $defaultVal;
-	if (array_key_exists($key, $_GET)) {
+function getHttpVal ($key, $default)
+{
+	if (array_key_exists($key, $_GET))
+	{
 		$val = $_GET[$key];
-  	} else if (array_key_exists($key, $_POST)) {
-  		$val = $_POST[$key];
-  	}
-  	$v = unescape(trim($val));
-  	return $v;
-}
-
-function log_format() {
-  $str = "";
-  foreach (func_get_args() as $msg)
-    {
-      if (is_array($msg)) {
-	foreach($msg as $key => $value){
-	  $str .= "$key=$value ";
 	}
-      } else {
-	$str .= $msg . " ";
-      }
-    }
-  return $str;
+	elseif (array_key_exists($key, $_POST))
+	{
+		$val = $_POST[$key];
+	}
+	else
+	{
+		$val = $default;
+	}
+
+	$val = trim($val);
+	$val = str_replace('\\', '', $val);
+
+	return $val;
 }
 
-// Return eg. 2008-11-21T06:11:55Z0711
-//
-function getUTCTimeStamp() {
-	date_default_timezone_set('UTC');
-	$tiny = substr(microtime(false), 2, 3);
-	return date('Y-m-d\TH:i:s\Z0', time()) . $tiny;
-}
-
-# NOTE: When we evolve to using general DB-interface, this functinality
-# should be moved there.
-function DbTimeToUnix($db_time)
+function log_format()
 {
-  $unix=strptime($db_time, '%F %H:%M:%S');
-  return mktime($unix[tm_hour], $unix[tm_min], $unix[tm_sec], $unix[tm_mon]+1, $unix[tm_mday], $unix[tm_year]+1900);
-}
+	$str = "";
 
-function UnixToDbTime($unix)
-{
-  return date('Y-m-d H:i:s', $unix);
+	foreach (func_get_args() as $msg)
+	{
+		if (is_array($msg))
+		{
+			foreach ($msg as $key => $value)
+			{
+				$str .= "$key=$value ";
+			}
+		}
+		else
+		{
+			$str .= $msg . " ";
+		}
+	}
+
+	return $str;
 }
 
 // Sign a http query string in the array of key-value pairs
 // return b64 encoded hmac hash
-function sign($a, $apiKey, $logger) {
+function sign($a, $apiKey, $logger)
+{
 	ksort($a);
-	$qs = urldecode(http_build_query($a));
 
-	// the TRUE at the end states we want the raw value, not hexadecimal form
-	$hmac = hash_hmac('sha1', utf8_encode($qs), $apiKey, true);
+	$qs = http_build_query($a);
+	$qs = urldecode($qs);
+	$qs = utf8_encode($qs);
+
+	// base64 encoded binary digest
+	$hmac = hash_hmac('sha1', $qs, $apiKey, TRUE);
 	$hmac = base64_encode($hmac);
 
-	$logger->log(LOG_DEBUG, 'SIGN: ' . $qs . ' H=' . $hmac);
+	$logger->log(LOG_DEBUG, "SIGN: $qs H=$hmac");
 
 	return $hmac;
-
-} // sign an array of query string
-
-function hex2b64 ($hex_str) {
-  $bin = pack("H*", $hex_str);
-  return base64_encode($bin);
 }
 
-function modhex2b64 ($modhex_str) {
-  $hex_str = strtr ($modhex_str, "cbdefghijklnrtuv", "0123456789abcdef");
-  return hex2b64($hex_str);
+function curl_settings($logger, $ident, $ch, $url, $timeout, $opts)
+{
+	$logger->log(LOG_DEBUG, "$ident adding URL : $url");
+
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'YK-VAL');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
+
+	if (is_array($opts) === FALSE)
+	{
+		$logger->log(LOG_WARN, $ident . 'curl options must be an array');
+		return;
+	}
+
+	foreach ($opts as $key => $val)
+		if (curl_setopt($ch, $key, $val) === FALSE)
+			$logger->log(LOG_WARN, "$ident failed to set " . curl_opt_name($key));
 }
 
-function curl_settings($logger, $ident, $handle, $url, $timeout, $curlopts) {
-  //configure "hard" options
-  $logger->log(LOG_DEBUG, $ident . " adding URL : " . $url);
-  curl_setopt($handle, CURLOPT_URL, $url);
-  curl_setopt($handle, CURLOPT_TIMEOUT, $timeout);
-  curl_setopt($handle, CURLOPT_USERAGENT, "YK-VAL");
-  curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
-  curl_setopt($handle, CURLOPT_FAILONERROR, TRUE);
-
-  if (!is_array($curlopts)) {
-    $logger->log(LOG_WARN, $ident . "curl options must be an array");
-    return;
-  }
-
-  foreach($curlopts as $key => $val) {
-    if (curl_setopt($handle, $key, $val) === FALSE) {
-      $logger->log(LOG_WARN, $ident . " failed to set " . curl_opt_name($key));
-      continue;
-    }
-  }
-}
-
-//returns the string name of a curl constant,
+// returns the string name of a curl constant,
 //	or "curl option" if constant not found.
 // e.g.
 //  curl_opt_name(CURLOPT_URL) returns "CURLOPT_URL"
 //  curl_opt_name(CURLOPT_BLABLA) returns "curl option"
-function curl_opt_name($opt) {
-  $consts = get_defined_constants(true);
-  $consts = $consts['curl'];
+function curl_opt_name($opt)
+{
+	$consts = get_defined_constants(true);
+	$consts = $consts['curl'];
 
-  $name = array_search($opt, $consts, TRUE);
+	$name = array_search($opt, $consts, TRUE);
 
-  //array_search may return either on failure...
-  if ($name === FALSE || $name === NULL) {
-    return "curl option";
-  }
+	// array_search may return either on failure...
+	if ($name === FALSE || $name === NULL)
+		return 'curl option';
 
-  return $name;
+	return $name;
 }
 
 // This function takes a list of URLs.  It will return the content of
@@ -178,137 +162,276 @@ function curl_opt_name($opt) {
 // long as one of the URLs given work, data will be returned.  If all
 // URLs fail, data from some URL that did not match parameter $match
 // (defaults to ^OK) is returned, or if all URLs failed, false.
-function retrieveURLasync ($ident, $urls, $logger, $ans_req=1, $match="^OK", $returl=False, $timeout=10, $curlopts) {
-  $mh = curl_multi_init();
+function retrieveURLasync($ident, $urls, $logger, $ans_req=1, $match="^OK", $returl=False, $timeout=10, $curlopts)
+{
+	$mh = curl_multi_init();
+	$ch = array();
 
-  $ch = array();
-  foreach ($urls as $id => $url) {
-    $handle = curl_init();
-
-    curl_settings($logger, $ident, $handle, $url, $timeout, $curlopts);
-
-    curl_multi_add_handle($mh, $handle);
-
-    $ch[$handle] = $handle;
-  }
-
-  $str = false;
-  $ans_count = 0;
-  $ans_arr = array();
-
-  do {
-    while (($mrc = curl_multi_exec($mh, $active)) == CURLM_CALL_MULTI_PERFORM)
-      ;
-
-    while ($info = curl_multi_info_read($mh)) {
-      $logger->log(LOG_DEBUG, $ident . " curl multi info : ", $info);
-      if ($info['result'] == CURLE_OK) {
-	$str = curl_multi_getcontent($info['handle']);
-	$logger->log(LOG_DEBUG, $ident . " curl multi content : " . $str);
-	if (preg_match("/".$match."/", $str)) {
-	  $logger->log(LOG_DEBUG, $ident . " response matches " . $match);
-	  $error = curl_error ($info['handle']);
-	  $errno = curl_errno ($info['handle']);
-	  $cinfo = curl_getinfo ($info['handle']);
-	  $logger->log(LOG_INFO, $ident . " errno/error: " . $errno . "/" . $error, $cinfo);
-	  $ans_count++;
-	  if ($returl) $ans_arr[]="url=" . $cinfo['url'] . "\n" . $str;
-	  else $ans_arr[]=$str;
+	foreach ($urls as $url)
+	{
+		$handle = curl_init();
+		curl_settings($logger, $ident, $handle, $url, $timeout, $curlopts);
+		curl_multi_add_handle($mh, $handle);
+		$ch[$handle] = $handle;
 	}
 
-	if ($ans_count >= $ans_req) {
-	  foreach ($ch as $h) {
-	    curl_multi_remove_handle ($mh, $h);
-	    curl_close ($h);
-	  }
-	  curl_multi_close ($mh);
+	$ans_arr = array();
 
-	  return $ans_arr;
+	do
+	{
+		while (curl_multi_exec($mh, $active) == CURLM_CALL_MULTI_PERFORM);
+
+		while ($info = curl_multi_info_read($mh))
+		{
+			$logger->log(LOG_DEBUG, "$ident curl multi info : ", $info);
+
+			if ($info['result'] == CURLE_OK)
+			{
+				$str = curl_multi_getcontent($info['handle']);
+
+				$logger->log(LOG_DEBUG, "$ident curl multi content : $str");
+
+				if (preg_match("/$match/", $str))
+				{
+					$logger->log(LOG_DEBUG, "$ident response matches $match");
+					$error = curl_error($info['handle']);
+					$errno = curl_errno($info['handle']);
+					$cinfo = curl_getinfo($info['handle']);
+					$logger->log(LOG_INFO, "$ident errno/error: $errno/$error", $cinfo);
+
+					if ($returl)
+						$ans_arr[] = "url=" . $cinfo['url'] . "\n" . $str;
+					else
+						$ans_arr[] = $str;
+				}
+
+				if (count($ans_arr) >= $ans_req)
+				{
+					foreach ($ch as $h)
+					{
+						curl_multi_remove_handle($mh, $h);
+						curl_close($h);
+					}
+					curl_multi_close($mh);
+
+					return $ans_arr;
+				}
+
+				curl_multi_remove_handle($mh, $info['handle']);
+				curl_close($info['handle']);
+				unset($ch[$info['handle']]);
+			}
+
+			curl_multi_select($mh);
+		}
+	}
+	while($active);
+
+	foreach ($ch as $h)
+	{
+		curl_multi_remove_handle($mh, $h);
+		curl_close($h);
+	}
+	curl_multi_close($mh);
+
+	if (count($ans_arr) > 0)
+		return $ans_arr;
+
+	return false;
+}
+
+function KSMdecryptOTP($urls, $logger, $curlopts)
+{
+	if (!is_array($urls))
+	{
+		$urls = array($urls);
 	}
 
-	curl_multi_remove_handle ($mh, $info['handle']);
-	curl_close ($info['handle']);
-	unset ($ch[$info['handle']]);
-      }
+	$response = retrieveURLasync('YK-KSM', $urls, $logger, $ans_req=1, $match='^OK', $returl=False, $timeout=10, $curlopts);
 
-      curl_multi_select ($mh);
-    }
-  } while($active);
+	if ($response === FALSE)
+	{
+		return false;
+	}
 
-  foreach ($ch as $h) {
-    curl_multi_remove_handle ($mh, $h);
-    curl_close ($h);
-  }
-  curl_multi_close ($mh);
+	$response = array_shift($response);
 
-  if ($ans_count>0) return $ans_arr;
-  return $str;
+	$logger->log(LOG_DEBUG, log_format('YK-KSM response: ', $response));
+
+	$ret = array();
+
+	if (sscanf($response,
+		'OK counter=%04x low=%04x high=%02x use=%02x',
+		$ret['session_counter'],
+		$ret['low'],
+		$ret['high'],
+		$ret['session_use']) !== 4)
+	{
+		return false;
+	}
+
+	return $ret;
 }
 
-// $otp: A yubikey OTP
-function KSMdecryptOTP($urls, $logger, $curlopts) {
-  $ret = array();
-  if (!is_array($urls)) {
-    $urls = array($urls);
-  }
+function sendResp($status, $logger, $apiKey = '', $extra = null)
+{
+	$a['status'] = $status;
 
-  $response = retrieveURLasync ("YK-KSM", $urls, $logger, $ans_req=1, $match="^OK", $returl=False, $timeout=10, $curlopts);
-  if (is_array($response)) {
-    $response = $response[0];
-  }
-  if ($response) {
-    $logger->log(LOG_DEBUG, log_format("YK-KSM response: ", $response));
-  }
-  if (sscanf ($response,
-	      "OK counter=%04x low=%04x high=%02x use=%02x",
-	      $ret["session_counter"], $ret["low"], $ret["high"],
-	      $ret["session_use"]) != 4) {
-    return false;
-  }
-  return $ret;
-} // End decryptOTP
+	// 2008-11-21T06:11:55Z0711
+	$t = substr(microtime(false), 2, 3);
+	$t = gmdate('Y-m-d\TH:i:s\Z0') . $t;
 
-function sendResp($status, $logger, $apiKey = '', $extra = null) {
-  if ($status == null) {
-    $status = S_BACKEND_ERROR;
-  }
+	$a['t'] = $t;
 
-  $a['status'] = $status;
-  $a['t'] = getUTCTimeStamp();
-  if ($extra){
-    foreach ($extra as $param => $value) $a[$param] = $value;
-  }
-  $h = sign($a, $apiKey, $logger);
+	if ($extra)
+		foreach ($extra as $param => $value)
+			$a[$param] = $value;
 
-  $str = "h=" . $h . "\r\n";
-  $str .= "t=" . ($a['t']) . "\r\n";
-  if ($extra){
-    foreach ($extra as $param => $value) {
-      $str .= $param . "=" . $value . "\r\n";
-    }
-  }
-  $str .= "status=" . ($a['status']) . "\r\n";
-  $str .= "\r\n";
+	$h = sign($a, $apiKey, $logger);
 
-  $logger->log(LOG_INFO, "Response: " . $str .
-    " (at " . date("c") . " " . microtime() . ")");
+	$str = "";
+	$str .= "h=" . $h . "\r\n";
+	$str .= "t=" . $a['t'] . "\r\n";
 
-  echo $str;
+	if ($extra)
+		foreach ($extra as $param => $value)
+			$str .= $param . "=" . $value . "\r\n";
+
+	$str .= "status=" . $a['status'] . "\r\n";
+	$str .= "\r\n";
+
+	$logger->log(LOG_INFO, "Response: " . $str . " (at " . gmdate("c") . " " . microtime() . ")");
+
+	echo $str;
+	exit;
 }
 
-// hash_equals is introduced in PHP 5.6
-if(!function_exists('hash_equals')) {
-  function hash_equals($a, $b) {
-    if(strlen($a) != strlen($b)) { //Hashes are a (known) fixed length, so this doesn't leak anything.
-      return false;
-    }
+// backport from PHP 5.6
+if (function_exists('hash_equals') === FALSE)
+{
+	function hash_equals($a, $b)
+	{
+		// hashes are a (known) fixed length,
+		//	so this doesn't leak anything.
+		if (strlen($a) != strlen($b))
+			return false;
 
-    $result = 0;
-    for ($i = 0; $i < strlen($a); $i++) {
-          $result |= ord($a[$i]) ^ ord($b[$i]);
-    }
-    return 0 === $result;
-  }
+		$result = 0;
+
+		for ($i = 0; $i < strlen($a); $i++)
+			$result |= ord($a[$i]) ^ ord($b[$i]);
+
+		return (0 === $result);
+	}
 }
 
-?>
+/**
+ * Return the total time taken to receive a response from a URL.
+ *
+ * @argument $url string
+ *
+ * @return float|bool seconds or false on failure
+ */
+function total_time ($url)
+{
+	$opts = array(
+		CURLOPT_URL => $url,
+		CURLOPT_TIMEOUT => 3,
+		CURLOPT_FORBID_REUSE => TRUE,
+		CURLOPT_FRESH_CONNECT => TRUE,
+		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_USERAGENT => 'ykval-munin-vallatency/1.0',
+	);
+
+	if (($ch = curl_init()) === FALSE)
+		return false;
+
+	if (curl_setopt_array($ch, $opts) === FALSE)
+		return false;
+
+	// we don't care about the actual response
+	if (curl_exec($ch) === FALSE)
+		return false;
+
+	$total_time = curl_getinfo($ch, CURLINFO_TOTAL_TIME);
+
+	curl_close($ch);
+
+	if (is_float($total_time) === FALSE)
+		return false;
+
+	return $total_time;
+}
+
+/**
+ * Given a list of urls, create internal and label names for munin.
+ *
+ * @argument $urls
+ * @return array|bool array or false on failure.
+ */
+function endpoints ($urls)
+{
+	$endpoints = array();
+
+	foreach ($urls as $url)
+	{
+		// internal munin name must be a-zA-Z0-9_,
+		//	so sha1 hex should be fine.
+		//
+		// munin also truncates at some length,
+		//	so we just take the first few characters of the hashsum.
+		$internal = substr(sha1($url), 0, 20);
+
+		// actual label name shown for graph values
+		if (($label = hostport($url)) === FALSE)
+		{
+			return false;
+		}
+
+		$endpoints[] = array($internal, $label, $url);
+	}
+
+	// check for truncated sha1 collisions (or actual duplicate URLs!)
+	$internal = array();
+
+	foreach($endpoints as $endpoint)
+	{
+		$internal[] = $endpoint[0];
+	}
+
+	if (count(array_unique($internal)) !== count($endpoints))
+		return false;
+
+	return $endpoints;
+}
+
+/**
+ * Given a URL, return the hostname and port,
+ *	if the port is defined or can be determined from the scheme.
+ *
+ * Otherwise just return the hostname.
+ *
+ * @argument $url string
+ * @return string|bool short name or false on failure
+ */
+function hostport ($url)
+{
+	if (($url = parse_url($url)) === FALSE)
+		return false;
+
+	if (array_key_exists('host', $url) === FALSE || $url['host'] === NULL)
+		return false;
+
+	if (array_key_exists('port', $url) === TRUE && $url['port'] !== NULL)
+		return $url['host'].':'.$url['port'];
+
+	if (array_key_exists('scheme', $url) === TRUE
+			&& strtolower($url['scheme']) === 'http')
+		return $url['host'].':80';
+
+	if (array_key_exists('scheme', $url) === TRUE
+			&& strtolower($url['scheme']) === 'https')
+		return $url['host'].':443';
+
+	return $url['host'];
+}

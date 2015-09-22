@@ -1,6 +1,6 @@
 <?php
 
-# Copyright (c) 2009-2013 Yubico AB
+# Copyright (c) 2009-2015 Yubico AB
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,8 +27,6 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-header("content-type: text/plain");
+header('content-type: text/plain');
 
 echo 'OK' . PHP_EOL;
-
-?>
