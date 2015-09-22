@@ -1,3 +1,20 @@
+2015-09-10  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.31
+
+2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-sync.php: Fix bug.  - fix fatal error when an empty sync request is sent to the server.  - logging boilerplate must be initiated before we start validating
+	the request.
+
+2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Fix bug.  - argument to sprintf, not concat to first argument!
+
+2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2015-09-09  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.30
