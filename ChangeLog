@@ -1,3 +1,60 @@
+2015-10-05  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.33
+
+2015-09-24  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-config.php: Added localhost port 80 for ksm service.  - previously the default config only included port 80.  - this was changed in 382cfc2ab506a4c0f6ba0222d473ff3df77dd6f5, 	to avoid issues with yhsm-yubikey-ksm, which defaults to port 8002.  - however, this broke configurations running with yubikey-ksm, 	which defaults to port 80.  - a better approach is to have both projects using the same
+		defaults, but for now we'll include both urls instead.  - the ksm decrypt requests happen asynchronously, 	so there should not be any performance degradation.  	(since either one of the urls will timeout)
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Drop some comments.  - not really helpful, better to just depend on what the code does.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - simplify and avoid using different arrays with same values.  - build $otpParams from $otpinfo as soon as we have ksm result, 	then unset $otpinfo.  - futher down, only use $otpParams and $localParams.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor and modify LOG_INFO message.  - as a result of this commit, 	key=val are separated with two spaces instead of one.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-15  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid variable aliases.
+
+2015-09-14  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2015-09-14  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.32
