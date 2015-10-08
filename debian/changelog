@@ -1,3 +1,9 @@
+yubikey-val (2.33-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 08 Oct 2015 12:39:27 +0200
+
 yubikey-val (2.32-1) unstable; urgency=low
 
   * New upstream release.
