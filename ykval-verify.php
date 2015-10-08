@@ -341,6 +341,7 @@ $otpParams = array(
 	'yk_high' => $otpinfo['high'],
 	'yk_low' => $otpinfo['low']
 );
+unset($otpinfo);
 
 
 /* First check if OTP is seen with the same nonce, in such case we have an replayed request */
@@ -392,13 +393,15 @@ else
 	$sl_success_rate = 0;
 }
 
-$myLog->log(LOG_INFO, "synclevel=" . $sl .
-		" nr servers=" . $nr_servers .
-		" req answers=" . $req_answers .
-		" answers=" . $nr_answers .
-		" valid answers=" . $nr_valid_answers .
-		" sl success rate=" . $sl_success_rate .
-		" timeout=" . $timeout);
+$myLog->log(LOG_INFO, '', array(
+	'synclevel' => $sl,
+	'nr servers' => $nr_servers,
+	'req answers' => $req_answers,
+	'answers' => $nr_answers,
+	'valid answers' => $nr_valid_answers,
+	'sl success rate' => $sl_success_rate,
+	'timeout' => $timeout,
+));
 
 if ($syncres == False)
 {
@@ -414,29 +417,15 @@ if ($syncres == False)
 	sendResp(S_NOT_ENOUGH_ANSWERS, $myLog, $apiKey, $extra);
 }
 
-/* Recreate parameters to make phising test work out
- TODO: use timefunctionality in deltatime library instead */
-$sessionCounter = $otpParams['yk_counter'];
-$sessionUse = $otpParams['yk_use'];
-$seenSessionCounter = $localParams['yk_counter'];
-$seenSessionUse = $localParams['yk_use'];
-
-$ad['high'] = $localParams['yk_high'];
-$ad['low'] = $localParams['yk_low'];
-$ad['accessed'] = date('Y-m-d H:i:s', $localParams['modified']);
-
-// check the time stamp
-if ($sessionCounter == $seenSessionCounter && $sessionUse > $seenSessionUse)
+if ($otpParams['yk_counter'] == $localParams['yk_counter'] && $otpParams['yk_use'] > $localParams['yk_use'])
 {
-	$ts = ($otpinfo['high'] << 16) + $otpinfo['low'];
-	$seenTs = ($ad['high'] << 16) + $ad['low'];
+	$ts = ($otpParams['yk_high'] << 16) + $otpParams['yk_low'];
+	$seenTs = ($localParams['yk_high'] << 16) + $localParams['yk_low'];
 	$tsDiff = $ts - $seenTs;
 	$tsDelta = $tsDiff * TS_SEC;
 
-	// check the real time
-	$lastTime = $localParams['modified'];
 	$now = time();
-	$elapsed = $now - $lastTime;
+	$elapsed = $now - $localParams['modified'];
 	$deviation = abs($elapsed - $tsDelta);
 
 	// Time delta server might verify multiple OTPS in a row. In such case validation server doesn't
@@ -455,7 +444,7 @@ if ($sessionCounter == $seenSessionCounter && $sessionUse > $seenSessionUse)
 		'this' => $ts,
 		'delta' => $tsDiff,
 		'secs' => $tsDelta,
-		'accessed' => sprintf('%s (%s)', $lastTime, $ad['accessed']),
+		'accessed' => sprintf('%s (%s)', $localParams['modified'], date('Y-m-d H:i:s', $localParams['modified'])),
 		'now' => sprintf('%s (%s)', $now, date('Y-m-d H:i:s', $now)),
 		'elapsed' => $elapsed,
 		'deviation' => sprintf('%s secs or %s%%', $deviation, round(100 * $percent)),
@@ -482,9 +471,9 @@ if ($protocol_version >= 2.0)
 
 if ($timestamp == 1)
 {
-	$extra['timestamp'] = ($otpinfo['high'] << 16) + $otpinfo['low'];
-	$extra['sessioncounter'] = $sessionCounter;
-	$extra['sessionuse'] = $sessionUse;
+	$extra['timestamp'] = ($otpParams['yk_high'] << 16) + $otpParams['yk_low'];
+	$extra['sessioncounter'] = $otpParams['yk_counter'];
+	$extra['sessionuse'] = $otpParams['yk_use'];
 }
 
 sendResp(S_OK, $myLog, $apiKey, $extra);
