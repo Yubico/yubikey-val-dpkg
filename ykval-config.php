@@ -66,7 +66,7 @@ $baseParams['__YKVAL_SYNC_POOL__'] = array(
 /**
  * An array of IP addresses which are allowed to issue sync requests to us.
  *
- * NOTE: You must use IP addreseses here. Hostnames will be ignored!
+ * NOTE: You must use IP addresses here. Hostnames will be ignored!
  *	Both IPv4 and IPv6 are supported.
  */
 $baseParams['__YKVAL_ALLOWED_SYNC_POOL__'] = array(
@@ -117,17 +117,45 @@ $baseParams['__YKVAL_KSM_CURL_OPTS__'] = array(
 function otp2ksmurls ($otp, $client)
 {
 	//if ($client == 42) {
-	//  return array("https://another-ykkms.example.com/wsapi/decrypt?otp=$otp");
+	//  return array("https://another-ykksm.example.com/wsapi/decrypt?otp=$otp");
 	//}
 
 	//if (preg_match("/^dteffujehknh/", $otp)) {
-	//  return array("https://different-ykkms.example.com/wsapi/decrypt?otp=$otp");
+	//  return array("https://different-ykksm.example.com/wsapi/decrypt?otp=$otp");
 	//}
 
 	return array(
-		// "https://ykkms1.example.com/wsapi/decrypt?otp=$otp",
-		// "https://ykkms2.example.com/wsapi/decrypt?otp=$otp",
+		// "https://ykksm1.example.com/wsapi/decrypt?otp=$otp",
+		// "https://ykksm2.example.com/wsapi/decrypt?otp=$otp",
 		"http://127.0.0.1:80/wsapi/decrypt?otp=$otp",
 		"http://127.0.0.1:8002/wsapi/decrypt?otp=$otp",
 	);
 }
+
+/**
+ * Uncomment to log verify requests just before replying to client.
+ *
+ * Available variables:
+ *	%time_start%
+ *	%time_end%
+ *	%time_taken%
+ *	%ip%
+ *	%client%
+ *	%public_id%
+ *	%otp%
+ *	%status%
+ *	%nonce%
+ *	%signed%
+ *	%counter%
+ *	%low%
+ *	%high%
+ *	%use%
+ *	%tls%
+ *	%protocol%
+ *	%sl%
+ *	%timeout%
+ *
+ * If a value is malformed or not available,
+ *	a dash '-' is written instead.
+ */
+//$baseParams['__YKVAL_VERIFY_LOGFORMAT__'] = '[%time_start%] [%time_taken%] [%ip%] [%tls%] [%protocol%] [%status%] [%client%] [%public_id%] [%otp%] [%sl%] [%timeout%] [%nonce%] [%signed%] [%counter%] [%low%] [%high%] [%use%]';

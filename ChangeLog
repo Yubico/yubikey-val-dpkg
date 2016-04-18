@@ -1,3 +1,120 @@
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: NEWS for 2.34
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log-verify.php, ykval-verify.php: Fix issue with $baseParam
+	value.  - introduced recently in these log format changes.  - require_once 'ykval-config.php in logformat() 	did not import, because it takes place in ykval-verify.php.  - hence logformat() did not have $baseParams in scope, 	so we never write the log line.  - refactor and set format outside the class itself.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-config.php, ykval-log-verify.php, ykval-verify.php: Add sl
+	and timeout to request log variables.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Make it clear that default will be a string
+	digit.  - since getHttpVal casts to string anyway.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Avoid ambiguity with client id.  - getHttpVal always returns a string, 	so always treat $client as a string in other checks.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-config.php, ykval-log-verify.php, ykval-verify.php: Add tls
+	and protocol variables to request log.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Rename variable.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-log-verify.php: Fix syntax errors introduced in previous
+	commit.
+
+2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php, ykval-config.php, ykval-log-verify.php,
+	ykval-log.php, ykval-verify.php: Add a verify request log line.  - Traditionally we wrote two lines for each ykval-verify.php call, 	'Request:' and 'Response:'.  - This commit allows us to log both request/response values in a
+	single line.  - For backward compatibility, the old logging is kept in place.  - To write this line to syslog, __YKVAL_VERIFY_LOGFORMAT__ needs to
+	be set.
+
+2016-03-14  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: limit how many queued entries we get on each
+	run if there's more than 1000 queued we will get another 1000 on the
+	next run.
+
+2016-03-07  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: put building syncurl in a function
+
+2016-03-07  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: implement paralell syncing with curl_multi
+
+2016-02-05  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #38 from
+	paulmenzel/improve-documentation-for-import-export-data Improve documentation for import export data
+
+2016-02-04  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* doc/Import_Export_Data.adoc: doc/Import_Export_Data: Remove
+	trailing whitespace Run the command `StripWhitespace` from Vim Better Whitespace Plugin
+	[1].  [1] https://github.com/ntpeters/vim-better-whitespace
+
+2016-01-07  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #37 from
+	paulmenzel/add-install-command-for-non-deb-distributions doc/Installation: Add install commands for non-Debian distributions
+
+2016-01-05  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #36 from
+	paulmenzel/improve-installation-documentation Improve installation documentation
+
+2015-12-23  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* doc/Installation.adoc: doc/Installation: Update Ubuntu
+	recommendation to 14.04 LTS Ubuntu 12.04 LTS will be supported until April 2017, but Ubuntu
+	14.04 LTS has been around long enough, so it’s well tested and
+	probably more common to install than 12.04 LTS. It’s supported
+	until April 2019 [1].  [1] https://wiki.ubuntu.com/Releases
+
+2015-12-23  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* doc/Installation.adoc: doc/Installation: Fix wording to *The
+	following steps apply …*
+
+2015-12-22  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #35 from
+
+	paulmenzel/remove-trailing-whitespace-from-installation-documentationdoc/Installation: Remove trailing whitespace
+
+2015-12-09  Jean Paul Galea <jp@galea.se>
+
+	* : Merge pull request #33 from
+	paulmenzel/fix-typo-in-comment-of-config-file ykval-config.php: Spell *addresses* correctly in comment
+
+2015-12-08  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* ykval-config.php: ykval-config.php: Use *ksm* instead of *kms* Avoid confusion and use the correct spelling for the three letter
+	acronym KSM (Key Storage Module).
+
+2015-12-08  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* ykval-config.php: ykval-config.php: Spell *addresses* correctly in
+	comment
+
+2015-10-05  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2015-10-05  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.33

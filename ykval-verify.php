@@ -27,9 +27,12 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+$time_start = microtime();
+
 require_once 'ykval-common.php';
 require_once 'ykval-config.php';
 require_once 'ykval-synclib.php';
+require_once 'ykval-log-verify.php';
 
 header('content-type: text/plain');
 
@@ -51,6 +54,20 @@ $https = (array_key_exists('HTTPS', $_SERVER) === TRUE
 
 $myLog = new Log('ykval-verify');
 $myLog->addField('ip', $ipaddr);
+
+$myLog->request = new LogVerify();
+
+if (array_key_exists('__YKVAL_VERIFY_LOGFORMAT__', $baseParams)
+	&& is_string($baseParams['__YKVAL_VERIFY_LOGFORMAT__']))
+{
+	$myLog->request->format = $baseParams['__YKVAL_VERIFY_LOGFORMAT__'];
+}
+
+$myLog->request->set('ip', $ipaddr);
+$myLog->request->set('tls', ($https ? 'tls' : '-'));
+$myLog->request->set('time_start', $time_start);
+unset($time_start);
+
 
 // FIXME
 $message = '';
@@ -82,14 +99,15 @@ else
 	$protocol_version = 1.0;
 }
 
+$myLog->request->set('protocol', $protocol_version);
 $myLog->log(LOG_DEBUG, "found protocol version $protocol_version");
 
 /**
  * Extract values from HTTP request
  */
 $h = getHttpVal('h', '');
-$client = getHttpVal('id', 0);
-$timestamp = getHttpVal('timestamp', 0);
+$client = getHttpVal('id', '0');
+$timestamp = getHttpVal('timestamp', '0');
 $otp = getHttpVal('otp', '');
 
 $otp = strtolower($otp);
@@ -100,6 +118,10 @@ if (preg_match('/^[jxe.uidchtnbpygk]+$/', $otp))
 	$otp = $new_otp;
 	unset($new_otp);
 }
+
+$myLog->request->set('signed', ($h === '' ? '-' : 'signed'));
+$myLog->request->set('client', ($client === '0' ? '-' : $client));
+$myLog->request->set('otp', $otp);
 
 
 /**
@@ -123,6 +145,10 @@ if ($protocol_version >= 2.0)
 	$sl = getHttpVal('sl', '');
 	$timeout = getHttpVal('timeout', '');
 	$nonce = getHttpVal('nonce', '');
+
+	$myLog->request->set('sl', $sl);
+	$myLog->request->set('timeout', $timeout);
+	$myLog->request->set('nonce', $nonce);
 
 	/* Nonce is required from protocol 2.0 */
 	if (!$nonce)
@@ -198,7 +224,7 @@ if (preg_match("/^[0-9]+$/", $client) == 0)
 	$myLog->log(LOG_NOTICE, 'id provided in request must be an integer');
 	sendResp(S_MISSING_PARAMETER, $myLog);
 }
-if ($client <= 0)
+if ($client === '0')
 {
 	$myLog->log(LOG_NOTICE, 'Client ID is missing');
 	sendResp(S_MISSING_PARAMETER, $myLog);
@@ -312,20 +338,25 @@ if (($otpinfo = KSMdecryptOTP($urls, $myLog, $curlopts)) === FALSE)
 	 */
 	sendResp(S_BAD_OTP, $myLog, $apiKey);
 }
+$myLog->request->set('counter', $otpinfo['session_counter']);
+$myLog->request->set('use', $otpinfo['session_use']);
+$myLog->request->set('high', $otpinfo['high']);
+$myLog->request->set('low', $otpinfo['low']);
 $myLog->log(LOG_DEBUG, 'Decrypted OTP:', $otpinfo);
 
 // get Yubikey from DB
-$yk_publicname = substr($otp, 0, strlen ($otp) - TOKEN_LEN);
-if (($localParams = $sync->getLocalParams($yk_publicname)) === FALSE)
+$public_id = substr($otp, 0, strlen ($otp) - TOKEN_LEN);
+$myLog->request->set('public_id', $public_id);
+if (($localParams = $sync->getLocalParams($public_id)) === FALSE)
 {
-	$myLog->log(LOG_NOTICE, "Invalid Yubikey $yk_publicname");
+	$myLog->log(LOG_NOTICE, "Invalid Yubikey $public_id");
 	sendResp(S_BACKEND_ERROR, $myLog, $apiKey);
 }
 
 $myLog->log(LOG_DEBUG, 'Auth data:', $localParams);
 if ($localParams['active'] != 1)
 {
-	$myLog->log(LOG_NOTICE, "De-activated Yubikey $yk_publicname");
+	$myLog->log(LOG_NOTICE, "De-activated Yubikey $public_id");
 	sendResp(S_BAD_OTP, $myLog, $apiKey);
 }
 
@@ -335,7 +366,7 @@ $otpParams = array(
 	'modified' => time(),
 	'otp' => $otp,
 	'nonce' => $nonce,
-	'yk_publicname' => $yk_publicname,
+	'yk_publicname' => $public_id,
 	'yk_counter' => $otpinfo['session_counter'],
 	'yk_use' => $otpinfo['session_use'],
 	'yk_high' => $otpinfo['high'],
