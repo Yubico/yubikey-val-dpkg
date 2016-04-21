@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-VERSION = 2.34
+VERSION = 2.35
 PACKAGE = yubikey-val
 CODE = COPYING Makefile NEWS README ykval-checksum-clients		\
 	ykval-common.php ykval-config.php ykval-db.php ykval-db.sql	\
@@ -75,6 +75,7 @@ install:
 	install -D --mode 644 ykval-db-pdo.php $(DESTDIR)$(phpprefix)/ykval-db-pdo.php
 	install -D --mode 644 ykval-db-oci.php $(DESTDIR)$(phpprefix)/ykval-db-oci.php
 	install -D --mode 644 ykval-log.php $(DESTDIR)$(phpprefix)/ykval-log.php
+	install -D --mode 644 ykval-log-verify.php $(DESTDIR)$(phpprefix)/ykval-log-verify.php
 	install -D ykval-queue $(DESTDIR)$(sbinprefix)/ykval-queue
 	install -D ykval-synchronize $(DESTDIR)$(sbinprefix)/ykval-synchronize
 	install -D ykval-export $(DESTDIR)$(sbinprefix)/ykval-export
