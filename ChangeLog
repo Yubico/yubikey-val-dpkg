@@ -1,3 +1,11 @@
+2016-04-19  Klas Lindfors <klas@yubico.com>
+
+	* Makefile: add ykval-log-verify.php to the install target
+
+2016-04-19  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2016-04-18  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* Makefile, NEWS: NEWS for 2.34
@@ -1175,26 +1183,24 @@
 
 2014-10-29  Dain Nilsson <dain@yubico.com>
 
-	* doc/ClientInfoFormat.adoc, doc/Client_Info_Format.adoc,
-	doc/GeneratingClients.adoc, doc/Generating_Clients.adoc,
-	doc/GettingStartedWritingClients.adoc,
-	doc/Getting_Started_Writing_Clients.adoc,
-	doc/ImportExportData.adoc, doc/Import_Export_Data.adoc,
-	doc/Installation.adoc, doc/MakeRelease.adoc, doc/Make_Release.adoc,
-	doc/MuninProbes.adoc, doc/Munin_Probes.adoc,
-	doc/RevocationService.adoc, doc/Revocation_Service.adoc,
-	doc/ServerReplicationProtocol.adoc,
-	doc/Server_Replication_Protocol.adoc, doc/SyncMonitor.adoc,
-	doc/Sync_Monitor.adoc, doc/Troubleshooting.adoc,
-	doc/ValidationProtocolV20.adoc, doc/ValidationServerAlgorithm.adoc,
-	doc/Validation_Protocol_V2.0.adoc,
-	doc/Validation_Server_Algorithm.adoc, doc/YubiKeyInfoFormat.adoc,
+	* doc/{ClientInfoFormat.adoc => Client_Info_Format.adoc},
+	doc/{GeneratingClients.adoc => Generating_Clients.adoc},
+	doc/{GettingStartedWritingClients.adoc =>
+	Getting_Started_Writing_Clients.adoc}, doc/ImportExportData.adoc,
+	doc/Import_Export_Data.adoc, doc/Installation.adoc,
+	doc/{MakeRelease.adoc => Make_Release.adoc}, doc/MuninProbes.adoc,
+	doc/Munin_Probes.adoc, doc/{RevocationService.adoc =>
+	Revocation_Service.adoc}, doc/{ServerReplicationProtocol.adoc =>
+	Server_Replication_Protocol.adoc}, doc/{SyncMonitor.adoc =>
+	Sync_Monitor.adoc}, doc/Troubleshooting.adoc,
+	doc/{ValidationProtocolV20.adoc => Validation_Protocol_V2.0.adoc},
+	doc/{ValidationServerAlgorithm.adoc =>
+	Validation_Server_Algorithm.adoc}, doc/YubiKeyInfoFormat.adoc,
 	doc/YubiKey_Info_Format.adoc,
-	doc/legacy/ValidationProtocolV10.adoc,
-	doc/legacy/ValidationProtocolV11.adoc,
-	doc/legacy/Validation_Protocol_V1.0.adoc,
-	doc/legacy/Validation_Protocol_V1.1.adoc: Improved asciidoc
-	formatting
+	doc/legacy/{ValidationProtocolV10.adoc =>
+	Validation_Protocol_V1.0.adoc},
+	doc/legacy/{ValidationProtocolV11.adoc =>
+	Validation_Protocol_V1.1.adoc}: Improved asciidoc formatting
 
 2014-10-29  Henrik Stråth <henrik@yubico.com>
 
@@ -1365,9 +1371,8 @@
 
 2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
 
-	* doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
-	doc/legacy/ValidationProtocolV10.adoc,
-	doc/legacy/ValidationProtocolV11.adoc: Restructured legacy docs
+	* doc/{ => legacy}/ValidationProtocolV10.adoc, doc/{ =>
+	legacy}/ValidationProtocolV11.adoc: Restructured legacy docs
 
 2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
 
@@ -1702,12 +1707,12 @@
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
-	* Makefile, ykval-checksum-clients, ykval-checksum-clients.php,
-	ykval-checksum-deactivated, ykval-checksum-deactivated.php,
-	ykval-export, ykval-export-clients, ykval-export-clients.php,
-	ykval-export.php, ykval-import, ykval-import-clients,
-	ykval-import-clients.php, ykval-import.php, ykval-queue,
-	ykval-queue.php: Removed file extensions of executables.
+	* Makefile, ykval-checksum-clients.php => ykval-checksum-clients,
+	ykval-checksum-deactivated.php => ykval-checksum-deactivated,
+	ykval-export.php => ykval-export, ykval-export-clients.php =>
+	ykval-export-clients, ykval-import.php => ykval-import,
+	ykval-import-clients.php => ykval-import-clients, ykval-queue.php
+	=> ykval-queue: Removed file extensions of executables.
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
@@ -2952,7 +2957,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* test-multi.php, tests/test-multi.php: Move.
+	* test-multi.php => tests/test-multi.php: Move.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -2985,7 +2990,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile, lib/Db.php, ykval-db.php: Add install target.
+	* Makefile, lib/Db.php => ykval-db.php: Add install target.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -3238,8 +3243,8 @@
 
 2009-05-04  Simon Josefsson <simon@josefsson.org>
 
-	* common.php, config.php.sample, ping.php, verify.php,
-	ykval-common.php, ykval-config.php, ykval-verify.php: Rename and
+	* ping.php, common.php => ykval-common.php, config.php.sample =>
+	ykval-config.php, verify.php => ykval-verify.php: Rename and
 	cleanup.
 
 2009-04-27  Simon Josefsson <simon@josefsson.org>
