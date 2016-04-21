@@ -1,3 +1,9 @@
+yubikey-val (2.35-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Thu, 21 Apr 2016 09:30:27 +0200
+
 yubikey-val (2.34-1) unstable; urgency=low
 
   * New upstream release.
