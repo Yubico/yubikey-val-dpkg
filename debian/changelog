@@ -1,3 +1,12 @@
+yubikey-val (2.36-1) unstable; urgency=low
+
+  * New upstream release.
+  * Drop php-pear package dependency.
+  * Add support for php 7.
+  * Add support for mariadb-server.
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Mon, 16 May 2016 15:45:00 +0200
+
 yubikey-val (2.35-1) unstable; urgency=low
 
   * New upstream release.
