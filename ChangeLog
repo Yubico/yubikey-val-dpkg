@@ -1,3 +1,40 @@
+2016-05-09  Klas Lindfors <klali@avm.se>
+
+	* : Merge pull request #39 from
+	paulmenzel/grant-insert-and-update-rights-to-db-user-ykval_verifier doc/Installation: Grant insert and update rights to `ykval_verifier`
+
+2016-04-29  Klas Lindfors <klas@yubico.com>
+
+	* .travis.yml: add php 7.0 for travis
+
+2016-04-29  Klas Lindfors <klas@yubico.com>
+
+	* ykval-common.php, ykval-sync.php, ykval-verify.php: make
+	getHttpVal() take the array to extract from refactor so verify early finds out which of $_GET and $_POST to use
+	and then stick to using only that for the entire flow.  sync only works with GET anyways so use $_GET directly.
+
+2016-04-29  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: use strtok() instead of explode() since we only
+	care about first element
+
+2016-04-29  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: use different syntax to caputer first element
+	of explode() call apparently not supported in 5.3 to get first element directly
+
+2016-04-29  Klas Lindfors <klas@yubico.com>
+
+	* ykval-synclib.php: rework re-sync to not use CURLOPT_PRIVATE relates #41
+
+2016-04-19  Klas Lindfors <klas@yubico.com>
+
+	* Makefile, NEWS: bump version
+
+2016-04-19  Klas Lindfors <klas@yubico.com>
+
+	* NEWS: news for 2.35
+
 2016-04-19  Klas Lindfors <klas@yubico.com>
 
 	* Makefile: add ykval-log-verify.php to the install target
@@ -63,6 +100,36 @@
 2016-03-07  Klas Lindfors <klas@yubico.com>
 
 	* ykval-synclib.php: implement paralell syncing with curl_multi
+
+2016-02-08  Paul Menzel <paul.menzel@giantmonkey.de>
+
+	* doc/Installation.adoc: doc/Installation: Grant insert and update
+	rights to ykval_verifier Currently, when following the installation instructions, the scripts
+	adding clients to the database don’t work as the user
+	`ykval_verifier` does not have any insert rights for the table
+	`clients`.  ``` LOG_DEBUG:ykval-gen-clients:db:DB query is:SELECT id FROM
+	clients ORDER BY id DESC LIMIT 1 LOG_DEBUG:ykval-gen-clients:db:DB
+	query is: INSERT INTO clients
+	(id,active,created,secret,email,notes,otp) VALUES ('1', '1',
+	'1404359826','XXXXXXXXXXXXXXXXXXXXXXXX =','','','')
+	LOG_INFO:ykval-gen-clients:db:Database query error: Array ( [0] =>
+	42000 [1] => 1142 [2] => INSERT command denied to user
+	'ykval_verifier'@'localhost' for table 'clients' )
+	LOG_ERR:ykval-gen-clients:Failed to insert new client with query
+	INSERT INTO clients (id,active,created,secret,email,notes,otp)
+	VALUES ('1', '1',
+	'1404359826’,’XXXXXXXXXXXXXXXXXXXXXXXX=','','','') Failed to
+	insert new client with query INSERT INTO clients
+	(id,active,created,secret,email,notes,otp) VALUES ('1', '1',
+	'1404359826','XXXXXXXXXXXXXXXXXXXXXXXX =','','','')` ``` Therefore, update the documentation, to also grant the user
+	`ykval_verifier` the rights to insert and update records into the
+	table `clients`. No delete rights are granted, because there is an
+	`active` column, which should probably used over deletion of
+	clients.  Note, the original idea was probably to use two database users. One
+	for inserting and updating data, and one for querying/validating it.
+	As, nothing is written about this though, use the
+	existing/recommended user for both things.  Fixes: #20 (ykval_verifier SQL user doesn't have permission to
+	INSERT INTO clients, breaks ykval-gen-clients)
 
 2016-02-05  Klas Lindfors <klali@avm.se>
 
@@ -1183,24 +1250,26 @@
 
 2014-10-29  Dain Nilsson <dain@yubico.com>
 
-	* doc/{ClientInfoFormat.adoc => Client_Info_Format.adoc},
-	doc/{GeneratingClients.adoc => Generating_Clients.adoc},
-	doc/{GettingStartedWritingClients.adoc =>
-	Getting_Started_Writing_Clients.adoc}, doc/ImportExportData.adoc,
-	doc/Import_Export_Data.adoc, doc/Installation.adoc,
-	doc/{MakeRelease.adoc => Make_Release.adoc}, doc/MuninProbes.adoc,
-	doc/Munin_Probes.adoc, doc/{RevocationService.adoc =>
-	Revocation_Service.adoc}, doc/{ServerReplicationProtocol.adoc =>
-	Server_Replication_Protocol.adoc}, doc/{SyncMonitor.adoc =>
-	Sync_Monitor.adoc}, doc/Troubleshooting.adoc,
-	doc/{ValidationProtocolV20.adoc => Validation_Protocol_V2.0.adoc},
-	doc/{ValidationServerAlgorithm.adoc =>
-	Validation_Server_Algorithm.adoc}, doc/YubiKeyInfoFormat.adoc,
+	* doc/ClientInfoFormat.adoc, doc/Client_Info_Format.adoc,
+	doc/GeneratingClients.adoc, doc/Generating_Clients.adoc,
+	doc/GettingStartedWritingClients.adoc,
+	doc/Getting_Started_Writing_Clients.adoc,
+	doc/ImportExportData.adoc, doc/Import_Export_Data.adoc,
+	doc/Installation.adoc, doc/MakeRelease.adoc, doc/Make_Release.adoc,
+	doc/MuninProbes.adoc, doc/Munin_Probes.adoc,
+	doc/RevocationService.adoc, doc/Revocation_Service.adoc,
+	doc/ServerReplicationProtocol.adoc,
+	doc/Server_Replication_Protocol.adoc, doc/SyncMonitor.adoc,
+	doc/Sync_Monitor.adoc, doc/Troubleshooting.adoc,
+	doc/ValidationProtocolV20.adoc, doc/ValidationServerAlgorithm.adoc,
+	doc/Validation_Protocol_V2.0.adoc,
+	doc/Validation_Server_Algorithm.adoc, doc/YubiKeyInfoFormat.adoc,
 	doc/YubiKey_Info_Format.adoc,
-	doc/legacy/{ValidationProtocolV10.adoc =>
-	Validation_Protocol_V1.0.adoc},
-	doc/legacy/{ValidationProtocolV11.adoc =>
-	Validation_Protocol_V1.1.adoc}: Improved asciidoc formatting
+	doc/legacy/ValidationProtocolV10.adoc,
+	doc/legacy/ValidationProtocolV11.adoc,
+	doc/legacy/Validation_Protocol_V1.0.adoc,
+	doc/legacy/Validation_Protocol_V1.1.adoc: Improved asciidoc
+	formatting
 
 2014-10-29  Henrik Stråth <henrik@yubico.com>
 
@@ -1371,8 +1440,9 @@
 
 2014-08-11  Henrik Stråth <henrik.strath@gmail.com>
 
-	* doc/{ => legacy}/ValidationProtocolV10.adoc, doc/{ =>
-	legacy}/ValidationProtocolV11.adoc: Restructured legacy docs
+	* doc/ValidationProtocolV10.adoc, doc/ValidationProtocolV11.adoc,
+	doc/legacy/ValidationProtocolV10.adoc,
+	doc/legacy/ValidationProtocolV11.adoc: Restructured legacy docs
 
 2014-08-11  Henrik Stråth <minisu@users.noreply.github.com>
 
@@ -1707,12 +1777,12 @@
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
-	* Makefile, ykval-checksum-clients.php => ykval-checksum-clients,
-	ykval-checksum-deactivated.php => ykval-checksum-deactivated,
-	ykval-export.php => ykval-export, ykval-export-clients.php =>
-	ykval-export-clients, ykval-import.php => ykval-import,
-	ykval-import-clients.php => ykval-import-clients, ykval-queue.php
-	=> ykval-queue: Removed file extensions of executables.
+	* Makefile, ykval-checksum-clients, ykval-checksum-clients.php,
+	ykval-checksum-deactivated, ykval-checksum-deactivated.php,
+	ykval-export, ykval-export-clients, ykval-export-clients.php,
+	ykval-export.php, ykval-import, ykval-import-clients,
+	ykval-import-clients.php, ykval-import.php, ykval-queue,
+	ykval-queue.php: Removed file extensions of executables.
 
 2013-01-29  Dain Nilsson <dain@yubico.com>
 
@@ -2957,7 +3027,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* test-multi.php => tests/test-multi.php: Move.
+	* test-multi.php, tests/test-multi.php: Move.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -2990,7 +3060,7 @@
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile, lib/Db.php => ykval-db.php: Add install target.
+	* Makefile, lib/Db.php, ykval-db.php: Add install target.
 
 2009-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -3243,8 +3313,8 @@
 
 2009-05-04  Simon Josefsson <simon@josefsson.org>
 
-	* ping.php, common.php => ykval-common.php, config.php.sample =>
-	ykval-config.php, verify.php => ykval-verify.php: Rename and
+	* common.php, config.php.sample, ping.php, verify.php,
+	ykval-common.php, ykval-config.php, ykval-verify.php: Rename and
 	cleanup.
 
 2009-04-27  Simon Josefsson <simon@josefsson.org>
