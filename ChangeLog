@@ -1,3 +1,27 @@
+2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.37
+
+2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.
+
+2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Refactor.  - unset temporary variable.
+
+2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-verify.php: Fix.  - $request was never set if both $_POST and $_GET are empty!
+
+2016-05-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
+2016-05-16  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.36
+
 2016-05-09  Klas Lindfors <klali@avm.se>
 
 	* : Merge pull request #39 from
