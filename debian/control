@@ -18,7 +18,7 @@ Depends: ${misc:Depends},
 	 php5-cli | php-cli,
 	 php5-curl | php-curl,
 	 php5-common | php-xml,
-	 mariadb-server | mysql-server | postgresql,
+	 mysql-server | mariadb-server | postgresql,
 	 php5-mysql | php-mysql | php5-pgsql | php-pgsql,
 	 dbconfig-common
 Recommends: mysql-client | postgresql-client
