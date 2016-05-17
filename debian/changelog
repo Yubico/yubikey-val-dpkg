@@ -1,3 +1,12 @@
+yubikey-val (2.37-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix apache conf.d file to also work with mod_php7.
+  * Fix missing php xml module when installing in a php 7 environment.
+  * Revert to mysql-server as default database dependency.
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Tue, 17 May 2016 11:30:00 +0200
+
 yubikey-val (2.36-1) unstable; urgency=low
 
   * New upstream release.
