@@ -18,6 +18,7 @@ Depends: ${misc:Depends},
 	 php5-cli | php-cli,
 	 php5-curl | php-curl,
 	 php5-common | php-xml,
+	 php5-common | php-bcmath,
 	 mysql-server | mariadb-server | postgresql,
 	 php5-mysql | php-mysql | php5-pgsql | php-pgsql,
 	 dbconfig-common
