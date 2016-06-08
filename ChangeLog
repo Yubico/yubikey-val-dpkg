@@ -1,3 +1,15 @@
+2016-06-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.38
+
+2016-06-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* ykval-common.php: Silence php notice.  - cast curl handle to integer prior to using it as an array key.
+
+2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2016-05-17  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.37
