@@ -1,3 +1,10 @@
+yubikey-val (2.38-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix missing PHP BC Math module on Ubuntu 16.04
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Wed, 08 June 2016 14:00:00 +0200
+
 yubikey-val (2.37-1) unstable; urgency=low
 
   * New upstream release.
