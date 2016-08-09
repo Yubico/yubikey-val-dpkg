@@ -6,6 +6,8 @@ yubikey-val (2.38-1) unstable; urgency=low
 
   [ Simon Josefsson ]
   * Fix lintian command-with-path-in-maintainer-script.
+  * Use https URLs in Vcs-Git.
+  * Update Standards-Version from 3.9.6 to 3.9.8.
 
  -- Simon Josefsson <simon@josefsson.org>  Tue, 09 Aug 2016 16:37:32 +0200
 
