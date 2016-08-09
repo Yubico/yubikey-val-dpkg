@@ -2,6 +2,20 @@
 
 set -e
 
+# https://www.debian.org/doc/manuals/developers-reference/ch06.en.html#bpp-debian-maint-scripts
+pathfind() {
+    OLDIFS="$IFS"
+    IFS=:
+    for p in $PATH; do
+        if [ -x "$p/$*" ]; then
+            IFS="$OLDIFS"
+            return 0
+        fi
+    done
+    IFS="$OLDIFS"
+    return 1
+}
+
 if [ -f /usr/share/debconf/confmodule ]; then
     . /usr/share/debconf/confmodule
 fi
@@ -36,7 +50,7 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
         rm -f /etc/apache2/conf-available/$CONF.conf
     fi
 
-    if [ -x /usr/sbin/invoke-rc.d ]; then
+    if pathfind invoke-rc.d; then
         invoke-rc.d apache2 reload 3>/dev/null || true
     else
         /etc/init.d/apache2 reload 3>/dev/null || true

@@ -2,6 +2,20 @@
 
 set -e
 
+# https://www.debian.org/doc/manuals/developers-reference/ch06.en.html#bpp-debian-maint-scripts
+pathfind() {
+    OLDIFS="$IFS"
+    IFS=:
+    for p in $PATH; do
+        if [ -x "$p/$*" ]; then
+            IFS="$OLDIFS"
+            return 0
+        fi
+    done
+    IFS="$OLDIFS"
+    return 1
+}
+
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/prerm
 dbc_go yubikey-val $@
@@ -9,7 +23,7 @@ dbc_go yubikey-val $@
 case "$1" in
     remove|deconfigure)
         if [ -x /etc/init.d/ykval-queue ]; then
-                if [ -x /usr/sbin/invoke-rc.d ]; then
+                if pathfind invoke-rc.d; then
                         invoke-rc.d ykval-queue stop
                 else
                         /etc/init.d/ykval-queue stop

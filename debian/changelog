@@ -4,6 +4,9 @@ yubikey-val (2.38-1) unstable; urgency=low
   * New upstream release.
   * Fix missing PHP BC Math module on Ubuntu 16.04
 
+  [ Simon Josefsson ]
+  * Fix lintian command-with-path-in-maintainer-script.
+
  -- Simon Josefsson <simon@josefsson.org>  Tue, 09 Aug 2016 16:37:32 +0200
 
 yubikey-val (2.37-1) unstable; urgency=low
