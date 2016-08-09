@@ -14,13 +14,13 @@ Package: yubikey-val
 Architecture: all
 Depends: ${misc:Depends},
 	 apache2,
-	 php5 | php,
-	 php5-cli | php-cli,
-	 php5-curl | php-curl,
-	 php5-common | php-xml,
-	 php5-common | php-bcmath,
+	 php | php5,
+	 php-cli | php5-cli,
+	 php-curl | php5-curl,
+	 php-xml | php5-common,
+	 php-bcmath | php5-common,
 	 mysql-server | mariadb-server | postgresql,
-	 php5-mysql | php-mysql | php5-pgsql | php-pgsql,
+	 php-mysql | php-pgsql | php5-mysql | php5-pgsql,
 	 dbconfig-common
 Recommends: mysql-client | postgresql-client
 Suggests: yubikey-ksm | yhsm-yubikey-ksm
