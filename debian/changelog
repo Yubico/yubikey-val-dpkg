@@ -1,3 +1,9 @@
+yubikey-val (2.38-2) unstable; urgency=low
+
+  * Fix typo in Vcs-Git URL.
+
+ -- Simon Josefsson <simon@josefsson.org>  Wed, 17 Aug 2016 14:16:46 +0200
+
 yubikey-val (2.38-1) unstable; urgency=low
 
   [ Jean Paul Galea ]
