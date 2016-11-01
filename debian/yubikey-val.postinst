@@ -48,7 +48,7 @@ if [ "$1" = "configure" ] ; then
     elif [ "$COMMON_STATE" = "installed" ] || [ "$COMMON_STATE" = "unpacked" ] ; then
         if [ -d /etc/apache2/conf.d/ -a ! -L /etc/apache2/conf.d/$CONF.conf ]; then
             ln -s ../conf-available/$CONF.conf /etc/apache2/conf.d/$CONF.conf
-	fi
+        fi
     fi
 
     if [ -f /etc/init.d/apache2 ] ; then
