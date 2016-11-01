@@ -1,2 +1,3 @@
-debian/conf/apache.conf /etc/yubico/val/
+debian/conf/apache-2.2.conf /etc/yubico/val/
+debian/conf/apache-2.4.conf /etc/yubico/val/
 debian/conf/dbconfig/* /usr/share/dbconfig-common/data/yubikey-val/install/

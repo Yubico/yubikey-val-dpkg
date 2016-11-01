@@ -1,3 +1,9 @@
+yubikey-val (2.39-2) unstable; urgency=low
+
+  * Fix yubikey-val.conf for apache 2.2 systems.
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Tue, 01 Nov 2016 13:45:00 +0100
+
 yubikey-val (2.39-1) unstable; urgency=low
 
   * New upstream release.
