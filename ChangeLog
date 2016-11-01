@@ -1,3 +1,16 @@
+2016-11-01  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* NEWS: NEWS for 2.39
+
+2016-08-17  Klas Lindfors <klas@yubico.com>
+
+	* doc/Generating_Clients.adoc: add a note about client
+	synchronization fixes #42
+
+2016-06-08  Jean Paul Galea <jeanpaul@yubico.com>
+
+	* Makefile, NEWS: Bump versions.
+
 2016-06-08  Jean Paul Galea <jeanpaul@yubico.com>
 
 	* NEWS: NEWS for 2.38
