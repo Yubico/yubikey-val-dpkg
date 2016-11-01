@@ -14,6 +14,7 @@ Package: yubikey-val
 Architecture: all
 Depends: ${misc:Depends},
 	 apache2,
+	 libapache2-mod-php | libapache2-mod-php5,
 	 php | php5,
 	 php-cli | php5-cli,
 	 php-curl | php5-curl,
