@@ -1,3 +1,11 @@
+yubikey-val (2.39-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix missing libapache2-mod-php dependency.
+  * Add a note about client synchronization.
+
+ -- Jean Paul Galea <jeanpaul@yubico.com>  Tue, 01 Nov 2016 10:40:00 +0100
+
 yubikey-val (2.38-2) unstable; urgency=low
 
   * Fix typo in Vcs-Git URL.
