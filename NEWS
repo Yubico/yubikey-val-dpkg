@@ -1,3 +1,7 @@
+* Version 2.40 (released 2020-03-06)
+
+  * Enhanced data validation to address YSA-2020-01.
+
 * Version 2.39 (released 2016-11-01)
 
   * Minor documentation fix.
